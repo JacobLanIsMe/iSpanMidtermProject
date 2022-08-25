@@ -27,7 +27,6 @@ namespace pgjMidtermProject
         }
     
         public int MemberID { get; set; }
-        public string MemberAcc { get; set; }
         public string MemberPw { get; set; }
         public bool TWorNOT { get; set; }
         public int RegionID { get; set; }

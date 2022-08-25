@@ -147,11 +147,11 @@
     <Compile Include="RegionList.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
-    <Compile Include="Register.cs">
+    <Compile Include="RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Register.Designer.cs">
-      <DependentUpon>Register.cs</DependentUpon>
+    <Compile Include="RegisterForm.Designer.cs">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Shipper.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
@@ -189,8 +189,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Register.resx">
-      <DependentUpon>Register.cs</DependentUpon>
+    <EmbeddedResource Include="RegisterForm.resx">
+      <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="iSpanProject.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

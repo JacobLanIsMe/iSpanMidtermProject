@@ -16,11 +16,17 @@ namespace pgjMidtermProject
         {
             InitializeComponent();
         }
-
+        
         private void linkLabelLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
+            loginForm.ShowDialog(this);
+        }
+
+        private void linkLabelRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RegisterForm register = new RegisterForm();
+            register.ShowDialog(this);
         }
     }
 }
