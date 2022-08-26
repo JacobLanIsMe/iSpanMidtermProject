@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="iSpanProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="iSpanProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AD">
           <Key>
             <PropertyRef Name="AdID" />
@@ -42,7 +42,7 @@
           <Key>
             <PropertyRef Name="BigTypeID" />
           </Key>
-          <Property Name="BigTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BigTypeID" Type="int" Nullable="false" />
           <Property Name="BigTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Comment">
@@ -189,14 +189,14 @@
           <Key>
             <PropertyRef Name="RegionID" />
           </Key>
-          <Property Name="RegionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
           <Property Name="Region" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Shipper">
           <Key>
             <PropertyRef Name="ShipperID" />
           </Key>
-          <Property Name="ShipperID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShipperID" Type="int" Nullable="false" />
           <Property Name="ShipperName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
@@ -211,7 +211,7 @@
           <Key>
             <PropertyRef Name="SmallTypeID" />
           </Key>
-          <Property Name="SmallTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SmallTypeID" Type="int" Nullable="false" />
           <Property Name="SmallTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BigTypeID" Type="int" Nullable="false" />
         </EntityType>
@@ -715,7 +715,8 @@
             <End Role="Wallet" EntitySet="Wallet" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="iSpanProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -932,7 +933,7 @@
           <Property Name="Style" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="Pic" Type="String" MaxLength="Max" FixedLength="false" />
+          <Property Name="Pic" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Product" FromRole="ProductDetail" ToRole="OrderDetails" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Product_SalesCourt" FromRole="ProductDetail" ToRole="Product" />
         </EntityType>
@@ -949,7 +950,7 @@
           <Key>
             <PropertyRef Name="RegionID" />
           </Key>
-          <Property Name="RegionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
           <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="MemberAccounts" Relationship="Self.FK_MemberAccount_RegionList" FromRole="RegionList" ToRole="MemberAccount" />
           <NavigationProperty Name="Products" Relationship="Self.FK_SalesCourt_RegionList" FromRole="RegionList" ToRole="Product" />
@@ -989,6 +990,16 @@
           <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Statuses" FromRole="Statuses" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Wallet">
           <Key>
@@ -1336,7 +1347,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="iSpanProjectEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="iSpanProjectEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ADs" EntityType="Self.AD" />
           <EntitySet Name="ArguePics" EntityType="Self.ArguePic" />
           <EntitySet Name="Arguments" EntityType="Self.Argument" />
@@ -1360,6 +1371,7 @@
           <EntitySet Name="ShippingStatuses" EntityType="Self.ShippingStatus" />
           <EntitySet Name="SmallTypes" EntityType="Self.SmallType" />
           <EntitySet Name="Statuses" EntityType="Self.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Wallets" EntityType="Self.Wallet" />
           <AssociationSet Name="FK_ArguePic_Argument" Association="Self.FK_ArguePic_Argument">
             <End Role="Argument" EntitySet="Arguments" />
@@ -1473,24 +1485,13 @@
             <End Role="RegionList" EntitySet="RegionLists" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="iSpanProjectModel.sysdiagram" />
         </EntityContainer>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="iSpanProjectModelStoreContainer" CdmEntityContainer="iSpanProjectEntities1">
+        <EntityContainerMapping StorageEntityContainer="iSpanProjectModelStoreContainer" CdmEntityContainer="iSpanProjectEntities">
           <EntitySetMapping Name="ADs">
             <EntityTypeMapping TypeName="iSpanProjectModel.AD">
               <MappingFragment StoreEntitySet="AD">
@@ -1731,23 +1732,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="iSpanProjectModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Wallets">
             <EntityTypeMapping TypeName="iSpanProjectModel.Wallet">
               <MappingFragment StoreEntitySet="Wallet">
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="WalletID" ColumnName="WalletID" />
                 <ScalarProperty Name="CouponID" ColumnName="CouponID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="iSpanProjectModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

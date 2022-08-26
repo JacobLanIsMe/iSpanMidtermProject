@@ -13,10 +13,10 @@ namespace pgjMidtermProject
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class iSpanProjectEntities1 : DbContext
+    public partial class iSpanProjectEntities : DbContext
     {
-        public iSpanProjectEntities1()
-            : base("name=iSpanProjectEntities1")
+        public iSpanProjectEntities()
+            : base("name=iSpanProjectEntities")
         {
         }
     
@@ -48,7 +48,7 @@ namespace pgjMidtermProject
         public virtual DbSet<ShippingStatus> ShippingStatuses { get; set; }
         public virtual DbSet<SmallType> SmallTypes { get; set; }
         public virtual DbSet<Status> Statuses { get; set; }
-        public virtual DbSet<Wallet> Wallets { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Wallet> Wallets { get; set; }
     }
 }
