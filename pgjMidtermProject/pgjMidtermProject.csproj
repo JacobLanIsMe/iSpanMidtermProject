@@ -79,12 +79,6 @@
     <Compile Include="Coupon.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
-    <Compile Include="EventToProduct.cs">
-      <DependentUpon>iSpanProject.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EventToProductDetail.cs">
-      <DependentUpon>iSpanProject.tt</DependentUpon>
-    </Compile>
     <Compile Include="FAQ.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
@@ -124,6 +118,7 @@
     <Compile Include="MemberAccount.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\CProduct.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
@@ -153,13 +148,16 @@
     <Compile Include="RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SellerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SellerForm.Designer.cs">
+      <DependentUpon>SellerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Shipper.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
     <Compile Include="ShippingStatus.cs">
-      <DependentUpon>iSpanProject.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ShoppingCart.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
     <Compile Include="SmallType.cs">
@@ -170,6 +168,12 @@
     </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UploadItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UploadItem.Designer.cs">
+      <DependentUpon>UploadItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Wallet.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
@@ -191,6 +195,12 @@
     </Compile>
     <EmbeddedResource Include="RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SellerForm.resx">
+      <DependentUpon>SellerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UploadItem.resx">
+      <DependentUpon>UploadItem.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="iSpanProject.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -220,8 +230,8 @@
     <Content Include="images\search.png" />
     <Content Include="iSpanProject.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>iSpanProject.Context.cs</LastGenOutput>
       <DependentUpon>iSpanProject.edmx</DependentUpon>
+      <LastGenOutput>iSpanProject.Context.cs</LastGenOutput>
     </Content>
     <Content Include="iSpanProject.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

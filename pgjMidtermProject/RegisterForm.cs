@@ -26,7 +26,7 @@ namespace pgjMidtermProject
         }
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (txtEmail.Text == "" || txtName.Text == "" || txtPhone.Text == "" || comboBoxRegion.Text == "" || txtAddress.Text == "" || txtBiography.Text == "" || pictureBoxMemPhoto.Image == null)
+            if (txtAccount.Text == "" || txtName.Text == "" || txtEmail.Text == "" || txtPhone.Text == "" || comboBoxRegion.Text == "" || txtAddress.Text == "" || txtBiography.Text == "" || pictureBoxMemPhoto.Image == null)
             {
                 MessageBox.Show("資料未填妥");
                 return;
@@ -47,6 +47,7 @@ namespace pgjMidtermProject
 
             MemberAccount memberAccount = new MemberAccount
             {
+                MemberAcc = txtAccount.Text,
                 MemberPw = txtPwd.Text,
                 TWorNOT = radioButtonDomestic.Checked,
                 RegionID = regionID,
@@ -65,6 +66,10 @@ namespace pgjMidtermProject
             {
                 dbContext.SaveChanges();
                 MessageBox.Show($"恭喜 {txtName.Text} 成功加入會員 !");
+                MainForm f = (MainForm)this.Owner;
+                f.welcome = $"你好，{txtName.Text}";
+                f.memberName = "會員資料";
+                this.Close();
             }
             catch(Exception ex)
             {
@@ -89,6 +94,11 @@ namespace pgjMidtermProject
                 }
 
             }
+        }
+
+        private void lblToMainForm_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

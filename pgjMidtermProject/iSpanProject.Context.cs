@@ -13,10 +13,10 @@ namespace pgjMidtermProject
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class iSpanProjectEntities : DbContext
+    public partial class iSpanProjectEntities1 : DbContext
     {
-        public iSpanProjectEntities()
-            : base("name=iSpanProjectEntities")
+        public iSpanProjectEntities1()
+            : base("name=iSpanProjectEntities1")
         {
         }
     
@@ -33,8 +33,6 @@ namespace pgjMidtermProject
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<CommentPic> CommentPics { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
-        public virtual DbSet<EventToProduct> EventToProducts { get; set; }
-        public virtual DbSet<EventToProductDetail> EventToProductDetails { get; set; }
         public virtual DbSet<FAQ> FAQs { get; set; }
         public virtual DbSet<Follow> Follows { get; set; }
         public virtual DbSet<Like> Likes { get; set; }
@@ -48,10 +46,9 @@ namespace pgjMidtermProject
         public virtual DbSet<RegionList> RegionLists { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<ShippingStatus> ShippingStatuses { get; set; }
-        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<SmallType> SmallTypes { get; set; }
         public virtual DbSet<Status> Statuses { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Wallet> Wallets { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

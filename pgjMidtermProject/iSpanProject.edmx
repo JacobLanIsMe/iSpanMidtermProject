@@ -42,14 +42,14 @@
           <Key>
             <PropertyRef Name="BigTypeID" />
           </Key>
-          <Property Name="BigTypeID" Type="int" Nullable="false" />
+          <Property Name="BigTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BigTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentID" />
           </Key>
-          <Property Name="SalesCourtID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="MemberID" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Star" Type="tinyint" Nullable="false" />
@@ -74,26 +74,6 @@
           <Property Name="ExpiredDate" Type="date" Nullable="false" />
           <Property Name="Discount" Type="real" Nullable="false" />
           <Property Name="ExpireN_A" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EventToProduct">
-          <Key>
-            <PropertyRef Name="EventID" />
-          </Key>
-          <Property Name="EventID" Type="int" Nullable="false" />
-          <Property Name="EventName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="StartDate" Type="date" Nullable="false" />
-          <Property Name="EndDate" Type="date" Nullable="false" />
-          <Property Name="EventContent" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EventToProductDetail">
-          <Key>
-            <PropertyRef Name="EventID" />
-          </Key>
-          <Property Name="EventID" Type="int" Nullable="false" />
-          <Property Name="EventName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="StartDate" Type="date" Nullable="false" />
-          <Property Name="EndDate" Type="date" Nullable="false" />
-          <Property Name="EventContent" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="FAQ">
           <Key>
@@ -124,6 +104,7 @@
             <PropertyRef Name="MemberID" />
           </Key>
           <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberAcc" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="MemberPw" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="TWorNOT" Type="bit" Nullable="false" />
           <Property Name="RegionID" Type="int" Nullable="false" />
@@ -159,7 +140,7 @@
           <Property Name="MemberID" Type="int" Nullable="false" />
           <Property Name="OrderDatetime" Type="datetime" Nullable="false" />
           <Property Name="RecieveAdr" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SalesCourtID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="FinishDate" Type="date" Nullable="false" />
           <Property Name="CouponID" Type="int" Nullable="false" />
           <Property Name="StatusID" Type="int" Nullable="false" />
@@ -177,9 +158,8 @@
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CourtName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SmallTypeID" Type="int" Nullable="false" />
-          <Property Name="EventID" Type="int" Nullable="false" />
           <Property Name="MemberID" Type="int" Nullable="false" />
           <Property Name="RegionID" Type="int" Nullable="false" />
           <Property Name="AdFee" Type="money" Nullable="false" />
@@ -191,12 +171,11 @@
             <PropertyRef Name="ProductDetailID" />
           </Key>
           <Property Name="ProductDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SalesCourtID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="Style" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="EventID" Type="int" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="UnitPrice" Type="money" Nullable="false" />
-          <Property Name="Pic" Type="varchar(max)" />
+          <Property Name="Pic" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="ProductPic">
           <Key>
@@ -217,7 +196,7 @@
           <Key>
             <PropertyRef Name="ShipperID" />
           </Key>
-          <Property Name="ShipperID" Type="int" Nullable="false" />
+          <Property Name="ShipperID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShipperName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
@@ -228,17 +207,11 @@
           <Property Name="ShippingStatusID" Type="int" Nullable="false" />
           <Property Name="ShipStatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="ShoppingCart">
-          <Key>
-            <PropertyRef Name="CartID" />
-          </Key>
-          <Property Name="CartID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="SmallType">
           <Key>
             <PropertyRef Name="SmallTypeID" />
           </Key>
-          <Property Name="SmallTypeID" Type="int" Nullable="false" />
+          <Property Name="SmallTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SmallTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BigTypeID" Type="int" Nullable="false" />
         </EntityType>
@@ -323,7 +296,7 @@
               <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="Comment">
-              <PropertyRef Name="SalesCourtID" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -479,7 +452,7 @@
               <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="SalesCourtID" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -495,18 +468,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Product_EventToProduct">
-          <End Role="EventToProductDetail" Type="Self.EventToProductDetail" Multiplicity="0..1" />
-          <End Role="ProductDetail" Type="Self.ProductDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventToProductDetail">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="ProductDetail">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_SalesCourt">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProductDetail" Type="Self.ProductDetail" Multiplicity="*" />
@@ -515,7 +476,7 @@
               <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="ProductDetail">
-              <PropertyRef Name="SalesCourtID" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -552,18 +513,6 @@
             </Principal>
             <Dependent Role="ProductPic">
               <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalesCourt_Event">
-          <End Role="EventToProduct" Type="Self.EventToProduct" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventToProduct">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="EventID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -636,8 +585,6 @@
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommentPic" EntityType="Self.CommentPic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Coupons" EntityType="Self.Coupons" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EventToProduct" EntityType="Self.EventToProduct" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EventToProductDetail" EntityType="Self.EventToProductDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAQ" EntityType="Self.FAQ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Follows" EntityType="Self.Follows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
@@ -651,7 +598,6 @@
           <EntitySet Name="RegionList" EntityType="Self.RegionList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipper" EntityType="Self.Shipper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShippingStatuses" EntityType="Self.ShippingStatuses" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SmallType" EntityType="Self.SmallType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -732,10 +678,6 @@
             <End Role="Statuses" EntitySet="Statuses" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Product_EventToProduct" Association="Self.FK_Product_EventToProduct">
-            <End Role="EventToProductDetail" EntitySet="EventToProductDetail" />
-            <End Role="ProductDetail" EntitySet="ProductDetail" />
-          </AssociationSet>
           <AssociationSet Name="FK_Product_SalesCourt" Association="Self.FK_Product_SalesCourt">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductDetail" EntitySet="ProductDetail" />
@@ -751,10 +693,6 @@
           <AssociationSet Name="FK_ProductPic_Product" Association="Self.FK_ProductPic_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductPic" EntitySet="ProductPic" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalesCourt_Event" Association="Self.FK_SalesCourt_Event">
-            <End Role="EventToProduct" EntitySet="EventToProduct" />
-            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_SalesCourt_MemberAccount" Association="Self.FK_SalesCourt_MemberAccount">
             <End Role="MemberAccount" EntitySet="MemberAccount" />
@@ -831,7 +769,7 @@
           <Key>
             <PropertyRef Name="CommentID" />
           </Key>
-          <Property Name="SalesCourtID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="MemberID" Type="Int32" Nullable="false" />
           <Property Name="Comment1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Star" Type="Byte" Nullable="false" />
@@ -862,28 +800,6 @@
           <Property Name="ExpireN_A" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Coupons" FromRole="Coupons" ToRole="Orders" />
           <NavigationProperty Name="Wallets" Relationship="Self.FK_Wallet_Coupons" FromRole="Coupons" ToRole="Wallet" />
-        </EntityType>
-        <EntityType Name="EventToProduct">
-          <Key>
-            <PropertyRef Name="EventID" />
-          </Key>
-          <Property Name="EventID" Type="Int32" Nullable="false" />
-          <Property Name="EventName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="EventContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_SalesCourt_Event" FromRole="EventToProduct" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="EventToProductDetail">
-          <Key>
-            <PropertyRef Name="EventID" />
-          </Key>
-          <Property Name="EventID" Type="Int32" Nullable="false" />
-          <Property Name="EventName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="EventContent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ProductDetails" Relationship="Self.FK_Product_EventToProduct" FromRole="EventToProductDetail" ToRole="ProductDetail" />
         </EntityType>
         <EntityType Name="FAQ">
           <Key>
@@ -918,6 +834,7 @@
             <PropertyRef Name="MemberID" />
           </Key>
           <Property Name="MemberID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberAcc" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MemberPw" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TWorNOT" Type="Boolean" Nullable="false" />
           <Property Name="RegionID" Type="Int32" Nullable="false" />
@@ -965,7 +882,7 @@
           <Property Name="MemberID" Type="Int32" Nullable="false" />
           <Property Name="OrderDatetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RecieveAdr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SalesCourtID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CouponID" Type="Int32" Nullable="false" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
@@ -989,16 +906,14 @@
             <PropertyRef Name="ProductID" />
           </Key>
           <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CourtName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SmallTypeID" Type="Int32" Nullable="false" />
-          <Property Name="EventID" Type="Int32" Nullable="false" />
           <Property Name="MemberID" Type="Int32" Nullable="false" />
           <Property Name="RegionID" Type="Int32" Nullable="false" />
           <Property Name="AdFee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="600" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ShipperID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_SalesCourt" FromRole="Product" ToRole="Comment" />
-          <NavigationProperty Name="EventToProduct" Relationship="Self.FK_SalesCourt_Event" FromRole="Product" ToRole="EventToProduct" />
           <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Product" FromRole="Product" ToRole="Likes" />
           <NavigationProperty Name="MemberAccount" Relationship="Self.FK_SalesCourt_MemberAccount" FromRole="Product" ToRole="MemberAccount" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_SalesCourt" FromRole="Product" ToRole="Orders" />
@@ -1013,13 +928,11 @@
             <PropertyRef Name="ProductDetailID" />
           </Key>
           <Property Name="ProductDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SalesCourtID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="Style" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EventID" Type="Int32" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="Pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="EventToProductDetail" Relationship="Self.FK_Product_EventToProduct" FromRole="ProductDetail" ToRole="EventToProductDetail" />
+          <Property Name="Pic" Type="String" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Product" FromRole="ProductDetail" ToRole="OrderDetails" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Product_SalesCourt" FromRole="ProductDetail" ToRole="Product" />
         </EntityType>
@@ -1036,7 +949,7 @@
           <Key>
             <PropertyRef Name="RegionID" />
           </Key>
-          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="MemberAccounts" Relationship="Self.FK_MemberAccount_RegionList" FromRole="RegionList" ToRole="MemberAccount" />
           <NavigationProperty Name="Products" Relationship="Self.FK_SalesCourt_RegionList" FromRole="RegionList" ToRole="Product" />
@@ -1059,12 +972,6 @@
           <Property Name="ShipStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_ShippingStatuses" FromRole="ShippingStatuses" ToRole="OrderDetails" />
         </EntityType>
-        <EntityType Name="ShoppingCart">
-          <Key>
-            <PropertyRef Name="CartID" />
-          </Key>
-          <Property Name="CartID" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="SmallType">
           <Key>
             <PropertyRef Name="SmallTypeID" />
@@ -1082,16 +989,6 @@
           <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Statuses" FromRole="Statuses" ToRole="Orders" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Wallet">
           <Key>
@@ -1171,7 +1068,7 @@
               <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="Comment">
-              <PropertyRef Name="SalesCourtID" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1208,30 +1105,6 @@
             </Principal>
             <Dependent Role="Wallet">
               <PropertyRef Name="CouponID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalesCourt_Event">
-          <End Role="EventToProduct" Type="Self.EventToProduct" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventToProduct">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_EventToProduct">
-          <End Role="EventToProductDetail" Type="Self.EventToProductDetail" Multiplicity="0..1" />
-          <End Role="ProductDetail" Type="Self.ProductDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventToProductDetail">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="ProductDetail">
-              <PropertyRef Name="EventID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1387,7 +1260,7 @@
               <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="Orders">
-              <PropertyRef Name="SalesCourtID" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1411,7 +1284,7 @@
               <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="ProductDetail">
-              <PropertyRef Name="SalesCourtID" />
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1463,7 +1336,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="iSpanProjectEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="iSpanProjectEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ADs" EntityType="Self.AD" />
           <EntitySet Name="ArguePics" EntityType="Self.ArguePic" />
           <EntitySet Name="Arguments" EntityType="Self.Argument" />
@@ -1472,8 +1345,6 @@
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="CommentPics" EntityType="Self.CommentPic" />
           <EntitySet Name="Coupons" EntityType="Self.Coupon" />
-          <EntitySet Name="EventToProducts" EntityType="Self.EventToProduct" />
-          <EntitySet Name="EventToProductDetails" EntityType="Self.EventToProductDetail" />
           <EntitySet Name="FAQs" EntityType="Self.FAQ" />
           <EntitySet Name="Follows" EntityType="Self.Follow" />
           <EntitySet Name="Likes" EntityType="Self.Like" />
@@ -1487,10 +1358,8 @@
           <EntitySet Name="RegionLists" EntityType="Self.RegionList" />
           <EntitySet Name="Shippers" EntityType="Self.Shipper" />
           <EntitySet Name="ShippingStatuses" EntityType="Self.ShippingStatus" />
-          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
           <EntitySet Name="SmallTypes" EntityType="Self.SmallType" />
           <EntitySet Name="Statuses" EntityType="Self.Status" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Wallets" EntityType="Self.Wallet" />
           <AssociationSet Name="FK_ArguePic_Argument" Association="Self.FK_ArguePic_Argument">
             <End Role="Argument" EntitySet="Arguments" />
@@ -1527,14 +1396,6 @@
           <AssociationSet Name="FK_Wallet_Coupons" Association="Self.FK_Wallet_Coupons">
             <End Role="Coupons" EntitySet="Coupons" />
             <End Role="Wallet" EntitySet="Wallets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalesCourt_Event" Association="Self.FK_SalesCourt_Event">
-            <End Role="EventToProduct" EntitySet="EventToProducts" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_EventToProduct" Association="Self.FK_Product_EventToProduct">
-            <End Role="EventToProductDetail" EntitySet="EventToProductDetails" />
-            <End Role="ProductDetail" EntitySet="ProductDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_Follows_MemberAccount" Association="Self.FK_Follows_MemberAccount">
             <End Role="MemberAccount" EntitySet="MemberAccounts" />
@@ -1612,13 +1473,24 @@
             <End Role="RegionList" EntitySet="RegionLists" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="iSpanProjectModel.sysdiagram" />
         </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="iSpanProjectModelStoreContainer" CdmEntityContainer="iSpanProjectEntities">
+        <EntityContainerMapping StorageEntityContainer="iSpanProjectModelStoreContainer" CdmEntityContainer="iSpanProjectEntities1">
           <EntitySetMapping Name="ADs">
             <EntityTypeMapping TypeName="iSpanProjectModel.AD">
               <MappingFragment StoreEntitySet="AD">
@@ -1667,7 +1539,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="iSpanProjectModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="SalesCourtID" ColumnName="SalesCourtID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="Comment1" ColumnName="Comment" />
                 <ScalarProperty Name="Star" ColumnName="Star" />
@@ -1694,28 +1566,6 @@
                 <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="ExpireN_A" ColumnName="ExpireN_A" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EventToProducts">
-            <EntityTypeMapping TypeName="iSpanProjectModel.EventToProduct">
-              <MappingFragment StoreEntitySet="EventToProduct">
-                <ScalarProperty Name="EventID" ColumnName="EventID" />
-                <ScalarProperty Name="EventName" ColumnName="EventName" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="EventContent" ColumnName="EventContent" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EventToProductDetails">
-            <EntityTypeMapping TypeName="iSpanProjectModel.EventToProductDetail">
-              <MappingFragment StoreEntitySet="EventToProductDetail">
-                <ScalarProperty Name="EventID" ColumnName="EventID" />
-                <ScalarProperty Name="EventName" ColumnName="EventName" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="EventContent" ColumnName="EventContent" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1750,6 +1600,7 @@
             <EntityTypeMapping TypeName="iSpanProjectModel.MemberAccount">
               <MappingFragment StoreEntitySet="MemberAccount">
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="MemberAcc" ColumnName="MemberAcc" />
                 <ScalarProperty Name="MemberPw" ColumnName="MemberPw" />
                 <ScalarProperty Name="TWorNOT" ColumnName="TWorNOT" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
@@ -1787,7 +1638,7 @@
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="OrderDatetime" ColumnName="OrderDatetime" />
                 <ScalarProperty Name="RecieveAdr" ColumnName="RecieveAdr" />
-                <ScalarProperty Name="SalesCourtID" ColumnName="SalesCourtID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
                 <ScalarProperty Name="CouponID" ColumnName="CouponID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
@@ -1807,9 +1658,8 @@
             <EntityTypeMapping TypeName="iSpanProjectModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="CourtName" ColumnName="CourtName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="SmallTypeID" ColumnName="SmallTypeID" />
-                <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="AdFee" ColumnName="AdFee" />
@@ -1822,9 +1672,8 @@
             <EntityTypeMapping TypeName="iSpanProjectModel.ProductDetail">
               <MappingFragment StoreEntitySet="ProductDetail">
                 <ScalarProperty Name="ProductDetailID" ColumnName="ProductDetailID" />
-                <ScalarProperty Name="SalesCourtID" ColumnName="SalesCourtID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="Style" ColumnName="Style" />
-                <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="Pic" ColumnName="Pic" />
@@ -1865,13 +1714,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ShoppingCarts">
-            <EntityTypeMapping TypeName="iSpanProjectModel.ShoppingCart">
-              <MappingFragment StoreEntitySet="ShoppingCart">
-                <ScalarProperty Name="CartID" ColumnName="CartID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SmallTypes">
             <EntityTypeMapping TypeName="iSpanProjectModel.SmallType">
               <MappingFragment StoreEntitySet="SmallType">
@@ -1889,23 +1731,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="iSpanProjectModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Wallets">
             <EntityTypeMapping TypeName="iSpanProjectModel.Wallet">
               <MappingFragment StoreEntitySet="Wallet">
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="WalletID" ColumnName="WalletID" />
                 <ScalarProperty Name="CouponID" ColumnName="CouponID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="iSpanProjectModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

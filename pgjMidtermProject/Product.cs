@@ -25,9 +25,8 @@ namespace pgjMidtermProject
         }
     
         public int ProductID { get; set; }
-        public string CourtName { get; set; }
+        public string ProductName { get; set; }
         public int SmallTypeID { get; set; }
-        public int EventID { get; set; }
         public int MemberID { get; set; }
         public int RegionID { get; set; }
         public decimal AdFee { get; set; }
@@ -36,7 +35,6 @@ namespace pgjMidtermProject
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual EventToProduct EventToProduct { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Likes { get; set; }
         public virtual MemberAccount MemberAccount { get; set; }

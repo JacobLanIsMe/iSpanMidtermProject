@@ -25,7 +25,7 @@ namespace pgjMidtermProject
         public int MemberID { get; set; }
         public System.DateTime OrderDatetime { get; set; }
         public string RecieveAdr { get; set; }
-        public int SalesCourtID { get; set; }
+        public int ProductID { get; set; }
         public System.DateTime FinishDate { get; set; }
         public int CouponID { get; set; }
         public int StatusID { get; set; }

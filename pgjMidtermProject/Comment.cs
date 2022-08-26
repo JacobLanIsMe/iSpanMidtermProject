@@ -20,7 +20,7 @@ namespace pgjMidtermProject
             this.CommentPics = new HashSet<CommentPic>();
         }
     
-        public int SalesCourtID { get; set; }
+        public int ProductID { get; set; }
         public int MemberID { get; set; }
         public string Comment1 { get; set; }
         public byte Star { get; set; }
