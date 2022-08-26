@@ -79,6 +79,12 @@
     <Compile Include="Coupon.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
+    <Compile Include="CtrlDisplayItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CtrlDisplayItem.Designer.cs">
+      <DependentUpon>CtrlDisplayItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="FAQ.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
@@ -118,6 +124,7 @@
     <Compile Include="MemberAccount.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
+    <Compile Include="models\CFunctions.cs" />
     <Compile Include="models\CProduct.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
@@ -178,6 +185,9 @@
     <Compile Include="Wallet.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CtrlDisplayItem.resx">
+      <DependentUpon>CtrlDisplayItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

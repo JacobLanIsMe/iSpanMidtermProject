@@ -18,6 +18,10 @@ namespace pgjMidtermProject
         }
         public string memberName
         {
+            get
+            {
+                return linkLabelLogin.Text;
+            }
             set
             {
                 linkLabelLogin.Text = value;
@@ -25,6 +29,10 @@ namespace pgjMidtermProject
         }
         public string welcome
         {
+            get
+            {
+                return lblWelcome.Text;
+            }
             set
             {
                 lblWelcome.Text = value;

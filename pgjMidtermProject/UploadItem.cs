@@ -33,6 +33,8 @@ namespace pgjMidtermProject
                 if (f.GetType() == typeof(MainForm))
                 {
                     MainForm mainForm = (MainForm)f;
+                    lblWelcome.Text = mainForm.welcome;
+                    linkLabelLogin.Text = "會員資料";
                     memberID = mainForm.memberID;
                 }
             }
@@ -141,33 +143,42 @@ namespace pgjMidtermProject
             }
             else
             {
-                
-                foreach (CProduct p in productList)
+                try
                 {
-                    var q1 = dbContext.SmallTypes.Where(i => i.SmallTypeName == p.smallType).Select(i => i.SmallTypeID).FirstOrDefault();
-                    var q2 = dbContext.RegionLists.Where(i=>i.Region == p.region).Select(i=>i.RegionID).FirstOrDefault();
-                    var q3 = dbContext.Shippers.Where(i => i.ShipperName == p.shipper).Select(i => i.ShipperID).FirstOrDefault();
-                    Product newProduct = new Product()
+                    foreach (CProduct p in productList)
                     {
-                        ProductName = p.name,
-                        SmallTypeID = q1,
-                        MemberID = memberID,
-                        RegionID = q2,
-                        AdFee = Convert.ToDecimal(p.adFee),
-                        Description = p.description,
-                        ShipperID = q3
-                    };
-                    dbContext.Products.Add(newProduct);
-                    dbContext.SaveChanges();
-                    var q4 = dbContext.Products.Where(i => i.ProductName == p.name && i.Description == p.description).Select(i => i.ProductID).FirstOrDefault();
-                    ProductDetail newProductDetail = new ProductDetail()
-                    {
-                        ProductID = q4,
-                        Style = p.style,
-                        Quantity = p.quantity,
-                        UnitPrice = p.unitPrice,
-                        Pic = p.picture,
-                    };
+                        var q1 = dbContext.SmallTypes.Where(i => i.SmallTypeName == p.smallType).Select(i => i.SmallTypeID).FirstOrDefault();
+                        var q2 = dbContext.RegionLists.Where(i => i.Region == p.region).Select(i => i.RegionID).FirstOrDefault();
+                        var q3 = dbContext.Shippers.Where(i => i.ShipperName == p.shipper).Select(i => i.ShipperID).FirstOrDefault();
+                        Product newProduct = new Product()
+                        {
+                            ProductName = p.name,
+                            SmallTypeID = q1,
+                            MemberID = memberID,
+                            RegionID = q2,
+                            AdFee = Convert.ToDecimal(p.adFee),
+                            Description = p.description,
+                            ShipperID = q3
+                        };
+                        dbContext.Products.Add(newProduct);
+                        dbContext.SaveChanges();
+                        var q4 = dbContext.Products.Where(i => i.ProductName == p.name && i.Description == p.description).Select(i => i.ProductID).FirstOrDefault();
+                        ProductDetail newProductDetail = new ProductDetail()
+                        {
+                            ProductID = q4,
+                            Style = p.style,
+                            Quantity = p.quantity,
+                            UnitPrice = p.unitPrice,
+                            Pic = p.picture,
+                        };
+                        dbContext.ProductDetails.Add(newProductDetail);
+                        dbContext.SaveChanges();
+                    }
+                    MessageBox.Show("上架成功");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("上架失敗");
                 }
             }
             

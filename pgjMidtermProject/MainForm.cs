@@ -39,6 +39,7 @@ namespace pgjMidtermProject
                 lblWelcome.Text = value;
             }
         }
+        iSpanProjectEntities dbContext = new iSpanProjectEntities();
         private void linkLabelLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LoginForm loginForm = new LoginForm();
@@ -66,6 +67,25 @@ namespace pgjMidtermProject
                 sellerForm.ShowDialog();
             }
             
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            var q = dbContext.Products.Select(i=>i).ToList();
+            if (q.Count > 0)
+            {
+                foreach (Product p in q)
+                {
+                    CtrlDisplayItem ctrlDisplayItem = new CtrlDisplayItem();
+                    
+                    flowLayoutPanel1.Controls.Add(ctrlDisplayItem);
+
+                }
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

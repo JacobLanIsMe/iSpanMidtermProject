@@ -26,10 +26,10 @@ namespace pgjMidtermProject
         private void btnLogin_Click(object sender, EventArgs e)
         {
             
-            var q = dbContext.MemberAccounts.Where(i => i.MemberAcc == txtAccount.Text).Select(i => i).FirstOrDefault();
+            var q = dbContext.MemberAccounts.Where(i => i.MemberAcc == txtAccount.Text && i.MemberPw == txtPwd.Text).Select(i => i).ToList();
             
             
-            if (q.MemberPw == txtPwd.Text)
+            if (q.Count == 1)
             {
                 MessageBox.Show("登入成功");
                 foreach (Form i in Application.OpenForms)
@@ -37,20 +37,16 @@ namespace pgjMidtermProject
                     if (i.GetType() == typeof(MainForm))
                     {
                         MainForm f = (MainForm)i;
-                        f.welcome = $"你好，{q.Name}";
+                        f.welcome = $"你好，{q[0].Name}";
                         f.memberName = "會員資料";
-                        f.memberID = q.MemberID;
+                        f.memberID = q[0].MemberID;
                     }
-                    //if (i.GetType() == typeof(SellerForm))
-                    //{
-                    //    SellerForm f = (SellerForm)i;
-                    //    f.welcome = $"你好，{q.Name}";
-                    //    f.memberName = "會員資料";
-                    //    f.ShowDialog();
-                    //}
-                    
                 }
                 this.Close();
+            }
+            else if (q.Count > 1)
+            {
+                MessageBox.Show("有重複帳號");
             }
             else
             {
