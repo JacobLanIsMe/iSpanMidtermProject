@@ -57,8 +57,8 @@ namespace pgjMidtermProject
             string productDescription = txtProductDescription.Text;
             string productShipper = cbbShipper.Text;
             string productStyle = txtStyle.Text;
-            int productQuantity = Convert.ToInt32(numericQty.Value);
-            decimal productUnitPrice = numericUnitPrice.Value;
+            int productQuantity = Convert.ToInt32(txtQty.Text);
+            decimal productUnitPrice = Convert.ToDecimal(txtUnitPrice.Text);
             if (productName == null || productSmallType == null || productRegion == null || productAdFee == null || productDescription == null || productShipper == null || productStyle == null || productQuantity == 0 || productUnitPrice == 0)
             {
                 MessageBox.Show("有欄位沒填到!");

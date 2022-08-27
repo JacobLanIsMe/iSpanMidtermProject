@@ -42,8 +42,6 @@ namespace pgjMidtermProject
             this.picbProductPhoto = new System.Windows.Forms.PictureBox();
             this.btnProductPhoto = new System.Windows.Forms.Button();
             this.txtProductPhoto = new System.Windows.Forms.TextBox();
-            this.numericUnitPrice = new System.Windows.Forms.NumericUpDown();
-            this.numericQty = new System.Windows.Forms.NumericUpDown();
             this.txtStyle = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -65,6 +63,8 @@ namespace pgjMidtermProject
             this.label1 = new System.Windows.Forms.Label();
             this.lblProductName = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.txtQty = new System.Windows.Forms.TextBox();
+            this.txtUnitPrice = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -76,8 +76,6 @@ namespace pgjMidtermProject
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbProductPhoto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUnitPrice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericQty)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -187,11 +185,11 @@ namespace pgjMidtermProject
             // 
             // splitContainer2.Panel2
             // 
+            this.splitContainer2.Panel2.Controls.Add(this.txtUnitPrice);
+            this.splitContainer2.Panel2.Controls.Add(this.txtQty);
             this.splitContainer2.Panel2.Controls.Add(this.picbProductPhoto);
             this.splitContainer2.Panel2.Controls.Add(this.btnProductPhoto);
             this.splitContainer2.Panel2.Controls.Add(this.txtProductPhoto);
-            this.splitContainer2.Panel2.Controls.Add(this.numericUnitPrice);
-            this.splitContainer2.Panel2.Controls.Add(this.numericQty);
             this.splitContainer2.Panel2.Controls.Add(this.txtStyle);
             this.splitContainer2.Panel2.Controls.Add(this.label9);
             this.splitContainer2.Panel2.Controls.Add(this.label8);
@@ -258,24 +256,6 @@ namespace pgjMidtermProject
             this.txtProductPhoto.Name = "txtProductPhoto";
             this.txtProductPhoto.Size = new System.Drawing.Size(401, 58);
             this.txtProductPhoto.TabIndex = 25;
-            // 
-            // numericUnitPrice
-            // 
-            this.numericUnitPrice.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUnitPrice.Location = new System.Drawing.Point(1036, 224);
-            this.numericUnitPrice.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.numericUnitPrice.Name = "numericUnitPrice";
-            this.numericUnitPrice.Size = new System.Drawing.Size(405, 56);
-            this.numericUnitPrice.TabIndex = 24;
-            // 
-            // numericQty
-            // 
-            this.numericQty.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericQty.Location = new System.Drawing.Point(1036, 143);
-            this.numericQty.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.numericQty.Name = "numericQty";
-            this.numericQty.Size = new System.Drawing.Size(405, 56);
-            this.numericQty.TabIndex = 23;
             // 
             // txtStyle
             // 
@@ -496,6 +476,24 @@ namespace pgjMidtermProject
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // txtQty
+            // 
+            this.txtQty.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txtQty.Location = new System.Drawing.Point(1036, 142);
+            this.txtQty.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.txtQty.Name = "txtQty";
+            this.txtQty.Size = new System.Drawing.Size(401, 58);
+            this.txtQty.TabIndex = 28;
+            // 
+            // txtUnitPrice
+            // 
+            this.txtUnitPrice.Font = new System.Drawing.Font("標楷體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txtUnitPrice.Location = new System.Drawing.Point(1036, 225);
+            this.txtUnitPrice.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.txtUnitPrice.Name = "txtUnitPrice";
+            this.txtUnitPrice.Size = new System.Drawing.Size(401, 58);
+            this.txtUnitPrice.TabIndex = 29;
+            // 
             // UploadItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
@@ -520,8 +518,6 @@ namespace pgjMidtermProject
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picbProductPhoto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUnitPrice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericQty)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -548,8 +544,6 @@ namespace pgjMidtermProject
         private System.Windows.Forms.Button btnAddItem;
         private System.Windows.Forms.Button btnProductPhoto;
         private System.Windows.Forms.TextBox txtProductPhoto;
-        private System.Windows.Forms.NumericUpDown numericUnitPrice;
-        private System.Windows.Forms.NumericUpDown numericQty;
         private System.Windows.Forms.TextBox txtStyle;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
@@ -563,5 +557,7 @@ namespace pgjMidtermProject
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtUnitPrice;
+        private System.Windows.Forms.TextBox txtQty;
     }
 }

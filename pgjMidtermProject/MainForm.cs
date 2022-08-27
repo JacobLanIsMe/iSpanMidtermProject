@@ -17,6 +17,17 @@ namespace pgjMidtermProject
         {
             InitializeComponent();
         }
+        public string itemNumInCart
+        {
+            get
+            {
+                return lblItemNumInCart.Text;
+            }
+            set
+            {
+                lblItemNumInCart.Text = value;
+            }
+        }
         public int memberID { get; set; }
         public string memberName
         {
@@ -110,6 +121,11 @@ namespace pgjMidtermProject
                 string itemDescription = ctrlDisplayItem.itemDescription;
                 var q = dbContext.Products.Where(i => i.ProductName == itemName && i.Description == itemDescription).Select(i => i.ProductID).FirstOrDefault();
                 BrowseItems browseItems = new BrowseItems();
+                //if (lblItemNumInCart.Text != "")
+                //{
+                //    browseItems.itemNumInCart = lblItemNumInCart.Text;
+                //}
+                browseItems.itemNumInCart = lblItemNumInCart.Text;
                 browseItems.productID = q;
                 browseItems.ShowDialog();
             }

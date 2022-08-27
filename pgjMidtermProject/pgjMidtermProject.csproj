@@ -112,6 +112,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>iSpanProject.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ItemsInCartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemsInCartForm.Designer.cs">
+      <DependentUpon>ItemsInCartForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Like.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CtrlDisplayItem.resx">
       <DependentUpon>CtrlDisplayItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemsInCartForm.resx">
+      <DependentUpon>ItemsInCartForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

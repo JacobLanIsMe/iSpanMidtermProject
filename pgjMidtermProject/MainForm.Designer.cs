@@ -32,10 +32,11 @@ namespace pgjMidtermProject
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.lblToSellerForm = new System.Windows.Forms.LinkLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblItemNumInCart = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.linkLabelLogin = new System.Windows.Forms.LinkLabel();
             this.linkLabelRegister = new System.Windows.Forms.LinkLabel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbCart = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -46,7 +47,7 @@ namespace pgjMidtermProject
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,10 +77,11 @@ namespace pgjMidtermProject
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.splitContainer1.Panel1.Controls.Add(this.lblItemNumInCart);
             this.splitContainer1.Panel1.Controls.Add(this.lblWelcome);
             this.splitContainer1.Panel1.Controls.Add(this.linkLabelLogin);
             this.splitContainer1.Panel1.Controls.Add(this.linkLabelRegister);
-            this.splitContainer1.Panel1.Controls.Add(this.pictureBox2);
+            this.splitContainer1.Panel1.Controls.Add(this.pbCart);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.textBox1);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
@@ -94,6 +96,16 @@ namespace pgjMidtermProject
             this.splitContainer1.SplitterDistance = 286;
             this.splitContainer1.SplitterWidth = 8;
             this.splitContainer1.TabIndex = 1;
+            // 
+            // lblItemNumInCart
+            // 
+            this.lblItemNumInCart.AutoSize = true;
+            this.lblItemNumInCart.Font = new System.Drawing.Font("Times New Roman", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblItemNumInCart.ForeColor = System.Drawing.Color.Red;
+            this.lblItemNumInCart.Location = new System.Drawing.Point(1845, 130);
+            this.lblItemNumInCart.Name = "lblItemNumInCart";
+            this.lblItemNumInCart.Size = new System.Drawing.Size(0, 49);
+            this.lblItemNumInCart.TabIndex = 14;
             // 
             // lblWelcome
             // 
@@ -136,16 +148,16 @@ namespace pgjMidtermProject
             this.linkLabelRegister.Text = "註冊";
             this.linkLabelRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelRegister_LinkClicked);
             // 
-            // pictureBox2
+            // pbCart
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1762, 158);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(108, 100);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 8;
-            this.pictureBox2.TabStop = false;
+            this.pbCart.Image = ((System.Drawing.Image)(resources.GetObject("pbCart.Image")));
+            this.pbCart.Location = new System.Drawing.Point(1762, 158);
+            this.pbCart.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.pbCart.Name = "pbCart";
+            this.pbCart.Size = new System.Drawing.Size(108, 100);
+            this.pbCart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCart.TabIndex = 8;
+            this.pbCart.TabStop = false;
             // 
             // button1
             // 
@@ -229,7 +241,7 @@ namespace pgjMidtermProject
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -239,7 +251,7 @@ namespace pgjMidtermProject
 
         private System.Windows.Forms.LinkLabel lblToSellerForm;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pbCart;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -249,6 +261,7 @@ namespace pgjMidtermProject
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label lblItemNumInCart;
     }
 }
 

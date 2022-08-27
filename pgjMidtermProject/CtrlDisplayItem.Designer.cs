@@ -42,6 +42,7 @@ namespace pgjMidtermProject
             this.pbItemPhoto.Location = new System.Drawing.Point(0, 0);
             this.pbItemPhoto.Name = "pbItemPhoto";
             this.pbItemPhoto.Size = new System.Drawing.Size(339, 240);
+            this.pbItemPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbItemPhoto.TabIndex = 0;
             this.pbItemPhoto.TabStop = false;
             // 
