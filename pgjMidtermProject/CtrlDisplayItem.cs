@@ -16,5 +16,49 @@ namespace pgjMidtermProject
         {
             InitializeComponent();
         }
+        public Image itemPhoto
+        {
+            get
+            {
+                return pbItemPhoto.Image;
+            }
+            set
+            {
+                pbItemPhoto.Image = value;
+            }
+        }
+        public string itemDescription
+        {
+            get
+            {
+                return lblItemDescription.Text;
+            }
+            set
+            {
+                lblItemDescription.Text = value;
+            }
+        }
+        public string itemPrice
+        {
+            get
+            {
+                return lblItemPrice.Text;
+            }
+            set
+            {
+                lblItemPrice.Text = value;
+            }
+        }
+        public string itemName
+        {
+            get
+            {
+                return lblitemName.Text;
+            }
+            set
+            {
+                lblitemName.Text = value;
+            }
+        }
     }
 }

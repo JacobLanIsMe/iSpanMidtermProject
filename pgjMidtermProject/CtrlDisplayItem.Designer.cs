@@ -29,53 +29,65 @@ namespace pgjMidtermProject
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pbItemPhoto = new System.Windows.Forms.PictureBox();
+            this.lblItemDescription = new System.Windows.Forms.Label();
+            this.lblItemPrice = new System.Windows.Forms.Label();
+            this.lblitemName = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pbItemPhoto)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pbItemPhoto
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(339, 240);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pbItemPhoto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pbItemPhoto.Location = new System.Drawing.Point(0, 0);
+            this.pbItemPhoto.Name = "pbItemPhoto";
+            this.pbItemPhoto.Size = new System.Drawing.Size(339, 240);
+            this.pbItemPhoto.TabIndex = 0;
+            this.pbItemPhoto.TabStop = false;
             // 
-            // label1
+            // lblItemDescription
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(3, 261);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 32);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "商品描述";
+            this.lblItemDescription.AutoSize = true;
+            this.lblItemDescription.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblItemDescription.Location = new System.Drawing.Point(3, 301);
+            this.lblItemDescription.Name = "lblItemDescription";
+            this.lblItemDescription.Size = new System.Drawing.Size(143, 32);
+            this.lblItemDescription.TabIndex = 1;
+            this.lblItemDescription.Text = "商品描述";
             // 
-            // label2
+            // lblItemPrice
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(3, 345);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(143, 32);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "商品價格";
+            this.lblItemPrice.AutoSize = true;
+            this.lblItemPrice.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblItemPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblItemPrice.Location = new System.Drawing.Point(3, 344);
+            this.lblItemPrice.Name = "lblItemPrice";
+            this.lblItemPrice.Size = new System.Drawing.Size(143, 32);
+            this.lblItemPrice.TabIndex = 2;
+            this.lblItemPrice.Text = "商品價格";
+            // 
+            // lblitemName
+            // 
+            this.lblitemName.AutoSize = true;
+            this.lblitemName.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lblitemName.Location = new System.Drawing.Point(3, 258);
+            this.lblitemName.Name = "lblitemName";
+            this.lblitemName.Size = new System.Drawing.Size(143, 32);
+            this.lblitemName.TabIndex = 3;
+            this.lblitemName.Text = "商品描述";
             // 
             // CtrlDisplayItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lblitemName);
+            this.Controls.Add(this.lblItemPrice);
+            this.Controls.Add(this.lblItemDescription);
+            this.Controls.Add(this.pbItemPhoto);
             this.Name = "CtrlDisplayItem";
             this.Size = new System.Drawing.Size(339, 429);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbItemPhoto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -83,8 +95,9 @@ namespace pgjMidtermProject
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pbItemPhoto;
+        private System.Windows.Forms.Label lblItemDescription;
+        private System.Windows.Forms.Label lblItemPrice;
+        private System.Windows.Forms.Label lblitemName;
     }
 }

@@ -31,6 +31,12 @@ namespace pgjMidtermProject
                 MessageBox.Show("資料未填妥");
                 return;
             }
+            var q = dbContext.MemberAccounts.Where(i => i.MemberAcc == txtAccount.Text).Select(i => i).ToList();
+            if (q.Count > 0)
+            {
+                MessageBox.Show("此帳號已被註冊過了");
+            }
+
             if (txtPwd.Text != txtPwdConfirm.Text)
             {
                 MessageBox.Show("密碼輸入不同");

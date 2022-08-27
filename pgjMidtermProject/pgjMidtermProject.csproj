@@ -70,6 +70,12 @@
     <Compile Include="BigType.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
+    <Compile Include="BrowseItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BrowseItems.Designer.cs">
+      <DependentUpon>BrowseItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Comment.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
@@ -185,6 +191,9 @@
     <Compile Include="Wallet.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BrowseItems.resx">
+      <DependentUpon>BrowseItems.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CtrlDisplayItem.resx">
       <DependentUpon>CtrlDisplayItem.cs</DependentUpon>
     </EmbeddedResource>
