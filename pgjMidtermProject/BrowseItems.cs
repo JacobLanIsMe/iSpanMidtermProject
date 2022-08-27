@@ -16,6 +16,7 @@ namespace pgjMidtermProject
         {
             InitializeComponent();
         }
+        iSpanProjectEntities dbContext = new iSpanProjectEntities();
 
         public int productID { get; set; }
 
@@ -30,6 +31,12 @@ namespace pgjMidtermProject
                     linkLabelLogin.Text = "會員資料";
                 }
             }
+            var q_productDetail = dbContext.ProductDetails.Where(i => i.ProductID == productID).Select(i => i).FirstOrDefault();
+            var q_product = dbContext.Products.Where(i => i.ProductID == productID).Select(i => i).FirstOrDefault();
+            var q_memberAccount = dbContext.MemberAccounts.Where(i => i.MemberID == q_product.MemberID);
+
+
+
 
         }
     }
