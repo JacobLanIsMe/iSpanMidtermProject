@@ -126,6 +126,7 @@ namespace pgjMidtermProject
             };
             dbContext.OrderDetails.Add(orderDetail);
             dbContext.SaveChanges();
+            
         }
 
         private void pbCart_Click(object sender, EventArgs e)
