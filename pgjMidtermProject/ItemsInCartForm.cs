@@ -18,6 +18,17 @@ namespace pgjMidtermProject
         {
             InitializeComponent();
         }
+        public string itemNumInCart
+        {
+            get
+            {
+                return lblItemNumInCart.Text;
+            }
+            set
+            {
+                lblItemNumInCart.Text = value;
+            }
+        }
         public bool ShowCartOrBuyNow { get; set; }
         iSpanProjectEntities dbContext = new iSpanProjectEntities();
         private int memberID;
@@ -111,6 +122,7 @@ namespace pgjMidtermProject
                     dbContext.SaveChanges();
                     dbContext.OrderDetails.Remove(q2);
                     dbContext.SaveChanges();
+                    CFunctions.ShowTheCountOfItemsInCart(memberID);
                     int index = dataGridView1.CurrentRow.Index;
 
                     itemList.RemoveAt(index);
