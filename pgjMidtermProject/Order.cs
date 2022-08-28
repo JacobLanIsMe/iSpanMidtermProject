@@ -27,7 +27,7 @@ namespace pgjMidtermProject
         public string RecieveAdr { get; set; }
         public int ProductID { get; set; }
         public System.DateTime FinishDate { get; set; }
-        public int CouponID { get; set; }
+        public Nullable<int> CouponID { get; set; }
         public int StatusID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

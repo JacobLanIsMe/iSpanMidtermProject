@@ -14,11 +14,17 @@ namespace pgjMidtermProject
     
     public partial class Wallet
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Wallet()
+        {
+            this.Coupons = new HashSet<Coupon>();
+        }
+    
         public int MemberID { get; set; }
         public int WalletID { get; set; }
-        public int CouponID { get; set; }
     
-        public virtual Coupon Coupon { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Coupon> Coupons { get; set; }
         public virtual MemberAccount MemberAccount { get; set; }
     }
 }

@@ -31,6 +31,15 @@ namespace pgjMidtermProject
             
             if (q.Count == 1)
             {
+                //var q2 = dbContext.Orders.Where(i => i.MemberID == q[0].MemberID && i.StatusID == 1).Select(i => i).ToList();
+                var q2 = from i in dbContext.Orders.AsEnumerable()
+                         where i.MemberID == q[0].MemberID && i.StatusID == 1
+                         select i;
+                int itemCount = 0;
+                if (q2.ToList().Count > 0)
+                {
+                    itemCount = q2.ToList().Count;
+                }
                 MessageBox.Show("登入成功");
                 foreach (Form i in Application.OpenForms)
                 {
@@ -40,6 +49,17 @@ namespace pgjMidtermProject
                         f.welcome = $"你好，{q[0].Name}";
                         f.memberName = "會員資料";
                         f.memberID = q[0].MemberID;
+                        if (f.itemNumInCart == null) f.itemNumInCart = "0";
+                        f.itemNumInCart = (Convert.ToInt32(f.itemNumInCart) + itemCount).ToString();
+                        
+                    }
+                    else if (i.GetType() == typeof(BrowseItemsForm))
+                    {
+                        BrowseItemsForm f = (BrowseItemsForm)i;
+                        f.welcome = $"你好，{q[0].Name}";
+                        f.memberName = "會員資料";
+                        if (f.itemNumInCart == null) f.itemNumInCart = "0";
+                        f.itemNumInCart = (Convert.ToInt32(f.itemNumInCart) + itemCount).ToString();
                     }
                 }
                 this.Close();

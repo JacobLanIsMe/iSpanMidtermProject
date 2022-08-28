@@ -9,19 +9,21 @@ namespace pgjMidtermProject.models
 {
     public class CFunctions
     {
-        public static void MemberInfoFromMainForm(out string login, out string welcome, out string itemNumInCart)
+        public static void MemberInfoFromMainForm(out string login, out string welcome, out string itemNumInCart, out int memberID)
         {
             login = "";
             welcome = "";
             itemNumInCart = "";
+            memberID = -1;
             foreach (Form form in Application.OpenForms)
             {
                 if (form.GetType() == typeof(MainForm))
                 {
                     MainForm f = (MainForm)form;
-                    login = "會員資料";
+                    login = f.memberName;
                     welcome = f.welcome;
                     itemNumInCart = f.itemNumInCart;
+                    memberID = f.memberID;
                     return;
                 }
             }

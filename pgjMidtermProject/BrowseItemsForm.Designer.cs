@@ -1,7 +1,7 @@
 ﻿
 namespace pgjMidtermProject
 {
-    partial class BrowseItems
+    partial class BrowseItemsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace pgjMidtermProject
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowseItems));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowseItemsForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblItemNumInCart = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
