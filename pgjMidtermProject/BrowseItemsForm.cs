@@ -133,6 +133,7 @@ namespace pgjMidtermProject
             };
             dbContext.OrderDetails.Add(orderDetail);
             dbContext.SaveChanges();
+            CFunctions.ShowTheCountOfItemsInCart(memberID);
             
         }
 
