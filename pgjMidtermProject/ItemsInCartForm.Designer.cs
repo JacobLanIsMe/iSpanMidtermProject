@@ -39,6 +39,7 @@ namespace pgjMidtermProject
             this.pbCart = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnOrder = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -70,6 +71,7 @@ namespace pgjMidtermProject
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnOrder);
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer1.Size = new System.Drawing.Size(1861, 913);
             this.splitContainer1.SplitterDistance = 150;
@@ -164,6 +166,18 @@ namespace pgjMidtermProject
             this.label1.TabIndex = 14;
             this.label1.Text = "蝦到爆";
             // 
+            // btnOrder
+            // 
+            this.btnOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnOrder.Font = new System.Drawing.Font("標楷體", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnOrder.Location = new System.Drawing.Point(1052, 428);
+            this.btnOrder.Name = "btnOrder";
+            this.btnOrder.Size = new System.Drawing.Size(204, 73);
+            this.btnOrder.TabIndex = 1;
+            this.btnOrder.Text = "下單";
+            this.btnOrder.UseVisualStyleBackColor = false;
+            this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -172,7 +186,7 @@ namespace pgjMidtermProject
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.RowTemplate.Height = 38;
-            this.dataGridView1.Size = new System.Drawing.Size(1861, 486);
+            this.dataGridView1.Size = new System.Drawing.Size(1861, 376);
             this.dataGridView1.TabIndex = 0;
             // 
             // ItemsInCartForm
@@ -209,5 +223,6 @@ namespace pgjMidtermProject
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnOrder;
     }
 }

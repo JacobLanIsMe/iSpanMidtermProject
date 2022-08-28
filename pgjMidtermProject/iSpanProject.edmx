@@ -122,7 +122,7 @@
           <Key>
             <PropertyRef Name="OrderDetailID" />
           </Key>
-          <Property Name="OrderDetailID" Type="int" Nullable="false" />
+          <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="ProductDetailID" Type="int" Nullable="false" />
           <Property Name="ShipperID" Type="int" Nullable="false" />
@@ -204,7 +204,7 @@
           <Key>
             <PropertyRef Name="ShippingStatusID" />
           </Key>
-          <Property Name="ShippingStatusID" Type="int" Nullable="false" />
+          <Property Name="ShippingStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShipStatusName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SmallType">
@@ -860,7 +860,7 @@
           <Key>
             <PropertyRef Name="OrderDetailID" />
           </Key>
-          <Property Name="OrderDetailID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <Property Name="ProductDetailID" Type="Int32" Nullable="false" />
           <Property Name="ShipperID" Type="Int32" Nullable="false" />
@@ -968,7 +968,7 @@
           <Key>
             <PropertyRef Name="ShippingStatusID" />
           </Key>
-          <Property Name="ShippingStatusID" Type="Int32" Nullable="false" />
+          <Property Name="ShippingStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ShipStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_ShippingStatuses" FromRole="ShippingStatuses" ToRole="OrderDetails" />
         </EntityType>

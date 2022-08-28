@@ -16,6 +16,6 @@ namespace pgjMidtermProject.models
         public decimal itemUnitPrice { get; set; }
         public int itemQty { get; set; }
         public string summary { get; set; }
-        public string delete { get; set; }
+        //public Button delete { get; set; }
     }
 }

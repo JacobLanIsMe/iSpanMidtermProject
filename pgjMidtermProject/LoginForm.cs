@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pgjMidtermProject.models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -49,18 +50,16 @@ namespace pgjMidtermProject
                         f.welcome = $"你好，{q[0].Name}";
                         f.memberName = "會員資料";
                         f.memberID = q[0].MemberID;
-                        //if (f.itemNumInCart == null) f.itemNumInCart = "0";
-                        //f.itemNumInCart = (Convert.ToInt32(f.itemNumInCart) + itemCount).ToString();
-                        f.itemNumInCart = itemCount.ToString();
+                        //f.itemNumInCart = itemCount.ToString();
+                        CFunctions.ShowTheCountOfItemsInCart(q[0].MemberID);
                     }
                     else if (i.GetType() == typeof(BrowseItemsForm))
                     {
                         BrowseItemsForm f = (BrowseItemsForm)i;
                         f.welcome = $"你好，{q[0].Name}";
                         f.memberName = "會員資料";
-                        //if (f.itemNumInCart == null) f.itemNumInCart = "0";
-                        //f.itemNumInCart = (Convert.ToInt32(f.itemNumInCart) + itemCount).ToString();
-                        f.itemNumInCart = itemCount.ToString();
+                        //f.itemNumInCart = itemCount.ToString();
+                        CFunctions.ShowTheCountOfItemsInCart(q[0].MemberID);
                     }
                 }
                 this.Close();

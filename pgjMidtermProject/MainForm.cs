@@ -130,5 +130,20 @@ namespace pgjMidtermProject
 
 
         }
+
+        private void pbCart_Click(object sender, EventArgs e)
+        {
+            if (linkLabelLogin.Text == "登入")
+            {
+                LoginForm loginForm = new LoginForm();
+                loginForm.ShowDialog();
+            }
+            else
+            {
+                ItemsInCartForm itemsInCartForm = new ItemsInCartForm();
+                itemsInCartForm.ShowDialog();
+            }
+            
+        }
     }
 }

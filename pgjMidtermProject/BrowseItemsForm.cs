@@ -54,6 +54,13 @@ namespace pgjMidtermProject
             }
         }
         public int productID { get; set; }
+        public int itemQty
+        {
+            get
+            {
+                return Convert.ToInt32(numericCount.Value);
+            }
+        }
         private int memberID;
         private void BrowseItems_Load(object sender, EventArgs e)
         {
@@ -136,8 +143,13 @@ namespace pgjMidtermProject
                 LoginForm loginForm = new LoginForm();
                 loginForm.ShowDialog();
             }
-            ItemsInCartForm itemsInCartForm = new ItemsInCartForm();
-            itemsInCartForm.ShowDialog();
+            else
+            {
+                ItemsInCartForm itemsInCartForm = new ItemsInCartForm();
+                itemsInCartForm.ShowCartOrBuyNow = false;
+                itemsInCartForm.ShowDialog();
+            }
+            
         }
 
         private void btnBuyNow_Click(object sender, EventArgs e)
@@ -148,6 +160,7 @@ namespace pgjMidtermProject
                 loginForm.ShowDialog();
             }
             ItemsInCartForm itemsInCartForm = new ItemsInCartForm();
+            itemsInCartForm.ShowCartOrBuyNow = true;
             itemsInCartForm.ShowDialog();
         }
     }

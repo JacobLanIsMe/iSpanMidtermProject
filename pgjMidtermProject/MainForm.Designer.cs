@@ -158,6 +158,7 @@ namespace pgjMidtermProject
             this.pbCart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbCart.TabIndex = 8;
             this.pbCart.TabStop = false;
+            this.pbCart.Click += new System.EventHandler(this.pbCart_Click);
             // 
             // button1
             // 

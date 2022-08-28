@@ -9,6 +9,8 @@ namespace pgjMidtermProject.models
 {
     public class CFunctions
     {
+        
+
         public static void MemberInfoFromMainForm(out string login, out string welcome, out string itemNumInCart, out int memberID)
         {
             login = "";
@@ -28,7 +30,15 @@ namespace pgjMidtermProject.models
                 }
             }
         }
-
+        public static void ShowTheCountOfItemsInCart(int memberID)
+        {
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            var q = dbContext.Orders.Where(i => i.MemberID == memberID && i.StatusID == 1).Select(i => i).ToList();
+            foreach (Form form in Application.OpenForms)
+            {
+                
+            }
+        }
         
     }
 }
