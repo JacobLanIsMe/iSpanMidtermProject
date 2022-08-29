@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,36 @@ namespace pgjMidtermProject.models
             }
             
         }
-        
+        public static bool IsMemberInfoAllFill(int memberID, string account, string name, string email, string phone, string region, string address, string biography, string pwd, string pwdConfirm, Image image, RadioButton domestic, RadioButton foreign)
+        {
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            var q1 = dbContext.MemberAccounts.Where(i => i.MemberID == memberID).Select(i => i).FirstOrDefault();
+            var q = dbContext.MemberAccounts.Where(i => i.MemberAcc == account).Select(i => i).ToList();
+            if (account == "" || name == "" || email == "" || phone == "" || region == "" || address == "" || biography == "" || image == null)
+            {
+                MessageBox.Show("資料未填妥");
+                return false;
+            }
+            else if ((q.Count > 0 && memberID == -1) || (q.Count > 0 && q1.MemberAcc!=account))
+            {
+                MessageBox.Show("此帳號已被註冊過了");
+                return false;
+            }
+            else if (pwd != pwdConfirm)
+            {
+                MessageBox.Show("密碼輸入不同");
+                return false;
+            }
+            else if (domestic.Checked==false && foreign.Checked == false)
+            {
+                MessageBox.Show("請選擇國內或國外");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
     }
 }

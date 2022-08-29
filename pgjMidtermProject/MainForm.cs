@@ -54,8 +54,16 @@ namespace pgjMidtermProject
         iSpanProjectEntities dbContext = new iSpanProjectEntities();
         private void linkLabelLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog(this);
+            if (linkLabelLogin.Text == "登入")
+            {
+                LoginForm loginForm = new LoginForm();
+                loginForm.ShowDialog(this);
+            }
+            else
+            {
+                MemberUpdateForm memberUpdateForm = new MemberUpdateForm();
+                memberUpdateForm.ShowDialog();
+            }
         }
 
         private void linkLabelRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -74,8 +82,8 @@ namespace pgjMidtermProject
             else
             {
                 SellerForm sellerForm = new SellerForm();
-                sellerForm.welcome = lblWelcome.Text;
-                sellerForm.memberName = "會員資料";
+                //sellerForm.welcome = lblWelcome.Text;
+                //sellerForm.memberName = "會員資料";
                 sellerForm.ShowDialog();
             }
             

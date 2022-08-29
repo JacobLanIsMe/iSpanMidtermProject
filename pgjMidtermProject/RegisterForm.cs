@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pgjMidtermProject.models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,45 +27,45 @@ namespace pgjMidtermProject
         }
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (txtAccount.Text == "" || txtName.Text == "" || txtEmail.Text == "" || txtPhone.Text == "" || comboBoxRegion.Text == "" || txtAddress.Text == "" || txtBiography.Text == "" || pictureBoxMemPhoto.Image == null)
-            {
-                MessageBox.Show("資料未填妥");
-                return;
-            }
-            var q = dbContext.MemberAccounts.Where(i => i.MemberAcc == txtAccount.Text).Select(i => i).ToList();
-            if (q.Count > 0)
-            {
-                MessageBox.Show("此帳號已被註冊過了");
-            }
-
-            if (txtPwd.Text != txtPwdConfirm.Text)
-            {
-                MessageBox.Show("密碼輸入不同");
-                txtPwd.Focus();
-                return;
-            }
-            
+            int memberID = -1;
+            string account = txtAccount.Text;
+            string name = txtName.Text;
+            string email = txtEmail.Text;
+            string phone = txtPhone.Text;
             string region = comboBoxRegion.Text;
+            string address = txtAddress.Text;
+            string biography = txtBiography.Text;
+            string pwd = txtPwd.Text;
+            string pwdConfirm = txtPwdConfirm.Text;
+            Image image = pictureBoxMemPhoto.Image;
+            if (!CFunctions.IsMemberInfoAllFill(memberID, account, name, email, phone, region, address, biography, pwd, pwdConfirm, image, radioButtonDomestic, radioButtonForeign))
+                return;
+            
             var regionID = dbContext.RegionLists.Where(i => i.Region == region).Select(i => i.RegionID).ToList()[0];
 
             MemoryStream ms = new MemoryStream();
             pictureBoxMemPhoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             byte[] bytes = ms.GetBuffer();
 
+            bool TWorNOT;
+            if (radioButtonDomestic.Checked)
+                TWorNOT = true;
+            else
+                TWorNOT = false; 
             MemberAccount memberAccount = new MemberAccount
             {
-                MemberAcc = txtAccount.Text,
-                MemberPw = txtPwd.Text,
-                TWorNOT = radioButtonDomestic.Checked,
+                MemberAcc = account,
+                MemberPw = pwd,
+                TWorNOT = TWorNOT,
                 RegionID = regionID,
-                Phone = txtPhone.Text,
-                Email = txtEmail.Text,
+                Phone = phone,
+                Email = email,
                 BackUpEmail = txtBackEmail.Text,
-                Address = txtAddress.Text,
+                Address = address,
                 NickName = txtNickName.Text,
-                Name = txtName.Text,
+                Name = name,
                 Birthday = dateTimePickerBirth.Value,
-                Bio = txtBiography.Text,
+                Bio = biography,
                 MemPic = bytes
             };
             dbContext.MemberAccounts.Add(memberAccount);
