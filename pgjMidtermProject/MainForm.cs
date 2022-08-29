@@ -84,7 +84,7 @@ namespace pgjMidtermProject
         private void MainForm_Load(object sender, EventArgs e)
         {
             //var q = dbContext.Products.Select(i=>i).ToList();
-            var q = dbContext.ProductDetails.Select(i => new { itemName = i.Product.ProductName, itemDescription = i.Product.Description, itemUnitPrice = i.UnitPrice, itemPhoto = i.Pic }).ToList();
+            var q = dbContext.ProductDetails.Select(i => new { itemName = i.Product.ProductName, itemDescription = i.Product.Description, itemUnitPrice = i.UnitPrice, itemPhoto = i.Pic, itemQty = i.Quantity }).ToList();
 
             if (q.Count > 0)
             {
@@ -97,6 +97,10 @@ namespace pgjMidtermProject
                     ctrlDisplayItem.itemDescription = p.itemDescription;
                     ctrlDisplayItem.itemPrice = "$" + p.itemUnitPrice.ToString("0") + "元";
                     ctrlDisplayItem.itemPhoto = photo;
+                    if (p.itemQty == 0)
+                    {
+                        ctrlDisplayItem.SoldOut = "已售完";
+                    }
                     flowLayoutPanel1.Controls.Add(ctrlDisplayItem);
                     ctrlDisplayItem.Click += CtrlDisplayItem_Click;
                 }

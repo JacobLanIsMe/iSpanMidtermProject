@@ -72,14 +72,19 @@ namespace pgjMidtermProject
             {
                 dbContext.SaveChanges();
                 MessageBox.Show($"恭喜 {txtName.Text} 成功加入會員 !");
-                foreach (Form f in Application.OpenForms)
+                foreach (Form form in Application.OpenForms)
                 {
-                    if (f.GetType() == typeof(MainForm))
+                    if (form.GetType() == typeof(MainForm))
                     {
-                        MainForm mainForm = (MainForm)f;
-                        mainForm.welcome = $"你好，{txtName.Text}";
-                        mainForm.memberName = "會員資料";
-                        mainForm.memberID = dbContext.MemberAccounts.Where(i => i.MemberAcc == txtAccount.Text && i.MemberPw == txtPwd.Text).Select(i => i.MemberID).FirstOrDefault();
+                        MainForm f = (MainForm)form;
+                        f.welcome = $"你好，{txtName.Text}";
+                        f.memberName = "會員資料";
+                        f.memberID = dbContext.MemberAccounts.Where(i => i.MemberAcc == txtAccount.Text && i.MemberPw == txtPwd.Text).Select(i => i.MemberID).FirstOrDefault();
+                    }
+                    else if (form.GetType() == typeof(LoginForm))
+                    {
+                        LoginForm f = (LoginForm)form;
+                        f.Close();
                     }
                 }
                 this.Close();

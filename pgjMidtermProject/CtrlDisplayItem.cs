@@ -16,6 +16,17 @@ namespace pgjMidtermProject
         {
             InitializeComponent();
         }
+        public string SoldOut
+        {
+            get
+            {
+                return lblSoldOut.Text;
+            }
+            set
+            {
+                lblSoldOut.Text = value;
+            }
+        }
         public Image itemPhoto
         {
             get

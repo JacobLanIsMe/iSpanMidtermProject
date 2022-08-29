@@ -82,6 +82,10 @@ namespace pgjMidtermProject
             pbSellerPhoto.Image = Image.FromStream(ms2);
             lblSellerName.Text = q_memberAccount.Name;
             numericCount.Maximum = q_productDetail.Quantity;
+            if (q_productDetail.Quantity == 0)
+            {
+                numericCount.Enabled = false;
+            }
 
         }
         
