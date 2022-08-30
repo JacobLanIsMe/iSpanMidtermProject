@@ -17,18 +17,18 @@ namespace pgjMidtermProject
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Coupon()
         {
+            this.OfficialCoupons = new HashSet<OfficialCoupon>();
             this.Orders = new HashSet<Order>();
         }
     
         public int CouponID { get; set; }
         public string CouponName { get; set; }
-        public int WalletID { get; set; }
         public System.DateTime StartDate { get; set; }
         public System.DateTime ExpiredDate { get; set; }
         public float Discount { get; set; }
-        public bool ExpireN_A { get; set; }
     
-        public virtual Wallet Wallet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OfficialCoupon> OfficialCoupons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

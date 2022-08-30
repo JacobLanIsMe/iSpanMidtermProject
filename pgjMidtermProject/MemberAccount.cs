@@ -23,7 +23,7 @@ namespace pgjMidtermProject
             this.Likes = new HashSet<Like>();
             this.Orders = new HashSet<Order>();
             this.Products = new HashSet<Product>();
-            this.Wallets = new HashSet<Wallet>();
+            this.OfficialCoupons = new HashSet<OfficialCoupon>();
         }
     
         public int MemberID { get; set; }
@@ -55,6 +55,6 @@ namespace pgjMidtermProject
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wallet> Wallets { get; set; }
+        public virtual ICollection<OfficialCoupon> OfficialCoupons { get; set; }
     }
 }

@@ -69,11 +69,9 @@
           </Key>
           <Property Name="CouponID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CouponName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="WalletID" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="date" Nullable="false" />
           <Property Name="ExpiredDate" Type="date" Nullable="false" />
           <Property Name="Discount" Type="real" Nullable="false" />
-          <Property Name="ExpireN_A" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="FAQ">
           <Key>
@@ -117,6 +115,15 @@
           <Property Name="Birthday" Type="date" Nullable="false" />
           <Property Name="Bio" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MemPic" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OfficialCoupons">
+          <Key>
+            <PropertyRef Name="OffCouponsID" />
+          </Key>
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="CouponID" Type="int" Nullable="false" />
+          <Property Name="ExpireN_A" Type="datetime" Nullable="false" />
+          <Property Name="OffCouponsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -232,13 +239,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="Wallet">
-          <Key>
-            <PropertyRef Name="WalletID" />
-          </Key>
-          <Property Name="MemberID" Type="int" Nullable="false" />
-          <Property Name="WalletID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
         <Association Name="FK_ArguePic_Argument">
           <End Role="Argument" Type="Self.Argument" Multiplicity="1" />
           <End Role="ArguePic" Type="Self.ArguePic" Multiplicity="*" />
@@ -311,18 +311,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Coupons_Wallet">
-          <End Role="Wallet" Type="Self.Wallet" Multiplicity="1" />
-          <End Role="Coupons" Type="Self.Coupons" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Wallet">
-              <PropertyRef Name="WalletID" />
-            </Principal>
-            <Dependent Role="Coupons">
-              <PropertyRef Name="WalletID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Follows_MemberAccount">
           <End Role="MemberAccount" Type="Self.MemberAccount" Multiplicity="1" />
           <End Role="Follows" Type="Self.Follows" Multiplicity="*" />
@@ -380,6 +368,18 @@
             </Principal>
             <Dependent Role="MemberAccount">
               <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfficialCoupons_Coupons">
+          <End Role="Coupons" Type="Self.Coupons" Multiplicity="1" />
+          <End Role="OfficialCoupons" Type="Self.OfficialCoupons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coupons">
+              <PropertyRef Name="CouponID" />
+            </Principal>
+            <Dependent Role="OfficialCoupons">
+              <PropertyRef Name="CouponID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -565,12 +565,12 @@
         </Association>
         <Association Name="FK_Wallet_MemberAccount">
           <End Role="MemberAccount" Type="Self.MemberAccount" Multiplicity="1" />
-          <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
+          <End Role="OfficialCoupons" Type="Self.OfficialCoupons" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MemberAccount">
               <PropertyRef Name="MemberID" />
             </Principal>
-            <Dependent Role="Wallet">
+            <Dependent Role="OfficialCoupons">
               <PropertyRef Name="MemberID" />
             </Dependent>
           </ReferentialConstraint>
@@ -588,6 +588,7 @@
           <EntitySet Name="Follows" EntityType="Self.Follows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Likes" EntityType="Self.Likes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberAccount" EntityType="Self.MemberAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfficialCoupons" EntityType="Self.OfficialCoupons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
@@ -600,7 +601,6 @@
           <EntitySet Name="SmallType" EntityType="Self.SmallType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Wallet" EntityType="Self.Wallet" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ArguePic_Argument" Association="Self.FK_ArguePic_Argument">
             <End Role="Argument" EntitySet="Argument" />
             <End Role="ArguePic" EntitySet="ArguePic" />
@@ -625,10 +625,6 @@
             <End Role="Comment" EntitySet="Comment" />
             <End Role="CommentPic" EntitySet="CommentPic" />
           </AssociationSet>
-          <AssociationSet Name="FK_Coupons_Wallet" Association="Self.FK_Coupons_Wallet">
-            <End Role="Wallet" EntitySet="Wallet" />
-            <End Role="Coupons" EntitySet="Coupons" />
-          </AssociationSet>
           <AssociationSet Name="FK_Follows_MemberAccount" Association="Self.FK_Follows_MemberAccount">
             <End Role="MemberAccount" EntitySet="MemberAccount" />
             <End Role="Follows" EntitySet="Follows" />
@@ -648,6 +644,10 @@
           <AssociationSet Name="FK_MemberAccount_RegionList" Association="Self.FK_MemberAccount_RegionList">
             <End Role="RegionList" EntitySet="RegionList" />
             <End Role="MemberAccount" EntitySet="MemberAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfficialCoupons_Coupons" Association="Self.FK_OfficialCoupons_Coupons">
+            <End Role="Coupons" EntitySet="Coupons" />
+            <End Role="OfficialCoupons" EntitySet="OfficialCoupons" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
             <End Role="Orders" EntitySet="Orders" />
@@ -711,7 +711,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Wallet_MemberAccount" Association="Self.FK_Wallet_MemberAccount">
             <End Role="MemberAccount" EntitySet="MemberAccount" />
-            <End Role="Wallet" EntitySet="Wallet" />
+            <End Role="OfficialCoupons" EntitySet="OfficialCoupons" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -793,12 +793,10 @@
           </Key>
           <Property Name="CouponID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CouponName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="WalletID" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ExpiredDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Discount" Type="Single" Nullable="false" />
-          <Property Name="ExpireN_A" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Wallet" Relationship="Self.FK_Coupons_Wallet" FromRole="Coupons" ToRole="Wallet" />
+          <NavigationProperty Name="OfficialCoupons" Relationship="Self.FK_OfficialCoupons_Coupons" FromRole="Coupons" ToRole="OfficialCoupons" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Coupons" FromRole="Coupons" ToRole="Orders" />
         </EntityType>
         <EntityType Name="FAQ">
@@ -854,7 +852,18 @@
           <NavigationProperty Name="RegionList" Relationship="Self.FK_MemberAccount_RegionList" FromRole="MemberAccount" ToRole="RegionList" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_MemberAccount" FromRole="MemberAccount" ToRole="Orders" />
           <NavigationProperty Name="Products" Relationship="Self.FK_SalesCourt_MemberAccount" FromRole="MemberAccount" ToRole="Product" />
-          <NavigationProperty Name="Wallets" Relationship="Self.FK_Wallet_MemberAccount" FromRole="MemberAccount" ToRole="Wallet" />
+          <NavigationProperty Name="OfficialCoupons" Relationship="Self.FK_Wallet_MemberAccount" FromRole="MemberAccount" ToRole="OfficialCoupons" />
+        </EntityType>
+        <EntityType Name="OfficialCoupon">
+          <Key>
+            <PropertyRef Name="OffCouponsID" />
+          </Key>
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="CouponID" Type="Int32" Nullable="false" />
+          <Property Name="ExpireN_A" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OffCouponsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Coupon" Relationship="Self.FK_OfficialCoupons_Coupons" FromRole="OfficialCoupons" ToRole="Coupons" />
+          <NavigationProperty Name="MemberAccount" Relationship="Self.FK_Wallet_MemberAccount" FromRole="OfficialCoupons" ToRole="MemberAccount" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -1000,15 +1009,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Wallet">
-          <Key>
-            <PropertyRef Name="WalletID" />
-          </Key>
-          <Property Name="MemberID" Type="Int32" Nullable="false" />
-          <Property Name="WalletID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Coupons" Relationship="Self.FK_Coupons_Wallet" FromRole="Wallet" ToRole="Coupons" />
-          <NavigationProperty Name="MemberAccount" Relationship="Self.FK_Wallet_MemberAccount" FromRole="Wallet" ToRole="MemberAccount" />
-        </EntityType>
         <Association Name="FK_ArguePic_Argument">
           <End Role="Argument" Type="Self.Argument" Multiplicity="1" />
           <End Role="ArguePic" Type="Self.ArguePic" Multiplicity="*" />
@@ -1093,15 +1093,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Coupons_Wallet">
-          <End Role="Wallet" Type="Self.Wallet" Multiplicity="1" />
-          <End Role="Coupons" Type="Self.Coupon" Multiplicity="*" />
+        <Association Name="FK_OfficialCoupons_Coupons">
+          <End Role="Coupons" Type="Self.Coupon" Multiplicity="1" />
+          <End Role="OfficialCoupons" Type="Self.OfficialCoupon" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Wallet">
-              <PropertyRef Name="WalletID" />
+            <Principal Role="Coupons">
+              <PropertyRef Name="CouponID" />
             </Principal>
-            <Dependent Role="Coupons">
-              <PropertyRef Name="WalletID" />
+            <Dependent Role="OfficialCoupons">
+              <PropertyRef Name="CouponID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1203,12 +1203,12 @@
         </Association>
         <Association Name="FK_Wallet_MemberAccount">
           <End Role="MemberAccount" Type="Self.MemberAccount" Multiplicity="1" />
-          <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
+          <End Role="OfficialCoupons" Type="Self.OfficialCoupon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MemberAccount">
               <PropertyRef Name="MemberID" />
             </Principal>
-            <Dependent Role="Wallet">
+            <Dependent Role="OfficialCoupons">
               <PropertyRef Name="MemberID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1358,6 +1358,7 @@
           <EntitySet Name="Follows" EntityType="Self.Follow" />
           <EntitySet Name="Likes" EntityType="Self.Like" />
           <EntitySet Name="MemberAccounts" EntityType="Self.MemberAccount" />
+          <EntitySet Name="OfficialCoupons" EntityType="Self.OfficialCoupon" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Payments" EntityType="Self.Payment" />
@@ -1370,7 +1371,6 @@
           <EntitySet Name="SmallTypes" EntityType="Self.SmallType" />
           <EntitySet Name="Statuses" EntityType="Self.Status" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Wallets" EntityType="Self.Wallet" />
           <AssociationSet Name="FK_ArguePic_Argument" Association="Self.FK_ArguePic_Argument">
             <End Role="Argument" EntitySet="Arguments" />
             <End Role="ArguePic" EntitySet="ArguePics" />
@@ -1399,9 +1399,9 @@
             <End Role="Comment" EntitySet="Comments" />
             <End Role="CommentPic" EntitySet="CommentPics" />
           </AssociationSet>
-          <AssociationSet Name="FK_Coupons_Wallet" Association="Self.FK_Coupons_Wallet">
-            <End Role="Wallet" EntitySet="Wallets" />
+          <AssociationSet Name="FK_OfficialCoupons_Coupons" Association="Self.FK_OfficialCoupons_Coupons">
             <End Role="Coupons" EntitySet="Coupons" />
+            <End Role="OfficialCoupons" EntitySet="OfficialCoupons" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Coupons" Association="Self.FK_Orders_Coupons">
             <End Role="Coupons" EntitySet="Coupons" />
@@ -1437,7 +1437,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Wallet_MemberAccount" Association="Self.FK_Wallet_MemberAccount">
             <End Role="MemberAccount" EntitySet="MemberAccounts" />
-            <End Role="Wallet" EntitySet="Wallets" />
+            <End Role="OfficialCoupons" EntitySet="OfficialCoupons" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_Orders" Association="Self.FK_OrderDetails_Orders">
             <End Role="Orders" EntitySet="Orders" />
@@ -1560,11 +1560,9 @@
               <MappingFragment StoreEntitySet="Coupons">
                 <ScalarProperty Name="CouponID" ColumnName="CouponID" />
                 <ScalarProperty Name="CouponName" ColumnName="CouponName" />
-                <ScalarProperty Name="WalletID" ColumnName="WalletID" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="ExpireN_A" ColumnName="ExpireN_A" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1612,6 +1610,16 @@
                 <ScalarProperty Name="Birthday" ColumnName="Birthday" />
                 <ScalarProperty Name="Bio" ColumnName="Bio" />
                 <ScalarProperty Name="MemPic" ColumnName="MemPic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfficialCoupons">
+            <EntityTypeMapping TypeName="iSpanProjectModel.OfficialCoupon">
+              <MappingFragment StoreEntitySet="OfficialCoupons">
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="CouponID" ColumnName="CouponID" />
+                <ScalarProperty Name="ExpireN_A" ColumnName="ExpireN_A" />
+                <ScalarProperty Name="OffCouponsID" ColumnName="OffCouponsID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1738,14 +1746,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Wallets">
-            <EntityTypeMapping TypeName="iSpanProjectModel.Wallet">
-              <MappingFragment StoreEntitySet="Wallet">
-                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
-                <ScalarProperty Name="WalletID" ColumnName="WalletID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -151,6 +151,9 @@
     <Compile Include="models\CFunctions.cs" />
     <Compile Include="models\CProduct.cs" />
     <Compile Include="models\CShowItemsInCart.cs" />
+    <Compile Include="OfficialCoupon.cs">
+      <DependentUpon>iSpanProject.tt</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
@@ -206,9 +209,6 @@
     </Compile>
     <Compile Include="UploadItem.Designer.cs">
       <DependentUpon>UploadItem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wallet.cs">
-      <DependentUpon>iSpanProject.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="BrowseItemsForm.resx">
       <DependentUpon>BrowseItemsForm.cs</DependentUpon>

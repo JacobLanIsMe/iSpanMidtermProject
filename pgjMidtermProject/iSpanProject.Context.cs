@@ -37,6 +37,7 @@ namespace pgjMidtermProject
         public virtual DbSet<Follow> Follows { get; set; }
         public virtual DbSet<Like> Likes { get; set; }
         public virtual DbSet<MemberAccount> MemberAccounts { get; set; }
+        public virtual DbSet<OfficialCoupon> OfficialCoupons { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
@@ -49,6 +50,5 @@ namespace pgjMidtermProject
         public virtual DbSet<SmallType> SmallTypes { get; set; }
         public virtual DbSet<Status> Statuses { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Wallet> Wallets { get; set; }
     }
 }
