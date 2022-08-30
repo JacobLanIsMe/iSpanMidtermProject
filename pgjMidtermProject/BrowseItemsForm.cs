@@ -85,6 +85,8 @@ namespace pgjMidtermProject
             if (q_productDetail.Quantity == 0)
             {
                 numericCount.Enabled = false;
+                btnAddToCart.Enabled = false;
+                btnBuyNow.Enabled = false;
             }
 
         }

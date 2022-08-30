@@ -10,8 +10,8 @@ namespace pgjMidtermProject.models
 {
     public class CFunctions
     {
-        
 
+        
         public static void MemberInfoFromMainForm(out string login, out string welcome, out string itemNumInCart, out int memberID)
         {
             login = "";
@@ -92,6 +92,22 @@ namespace pgjMidtermProject.models
                 return true;
             }
         }
-
+        public static void ClickItemAndShow(Object sender, out int productID)
+        {
+            Control c = sender as Control;
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            CtrlDisplayItem ctrlDisplayItem;
+            if (c.Parent.GetType() == typeof(CtrlDisplayItem))
+            {
+                ctrlDisplayItem = c.Parent as CtrlDisplayItem;
+            }
+            else
+            {
+                ctrlDisplayItem = c as CtrlDisplayItem;
+            }
+            string itemName = ctrlDisplayItem.itemName;
+            string itemDescription = ctrlDisplayItem.itemDescription;
+            productID = dbContext.Products.Where(i => i.ProductName == itemName && i.Description == itemDescription).Select(i => i.ProductID).FirstOrDefault();
+        }
     }
 }

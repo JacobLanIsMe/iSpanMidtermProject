@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pgjMidtermProject.models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -111,6 +112,10 @@ namespace pgjMidtermProject
                     }
                     flowLayoutPanel1.Controls.Add(ctrlDisplayItem);
                     ctrlDisplayItem.Click += CtrlDisplayItem_Click;
+                    foreach (Control control in ctrlDisplayItem.Controls)
+                    {
+                        control.Click += CtrlDisplayItem_Click;
+                    }
                 }
             }
             else
@@ -128,19 +133,11 @@ namespace pgjMidtermProject
             }
             else
             {
-                CtrlDisplayItem ctrlDisplayItem = sender as CtrlDisplayItem;
-                string itemName = ctrlDisplayItem.itemName;
-                string itemDescription = ctrlDisplayItem.itemDescription;
-                var q = dbContext.Products.Where(i => i.ProductName == itemName && i.Description == itemDescription).Select(i => i.ProductID).FirstOrDefault();
+                CFunctions.ClickItemAndShow(sender, out int productID);
                 BrowseItemsForm browseItems = new BrowseItemsForm();
-
-                browseItems.itemNumInCart = lblItemNumInCart.Text;
-                browseItems.productID = q;
+                browseItems.productID = productID;
                 browseItems.ShowDialog();
             }
-            
-
-
         }
 
         private void pbCart_Click(object sender, EventArgs e)
