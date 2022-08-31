@@ -137,7 +137,7 @@ namespace pgjMidtermProject
 
         private void btnUpload_Click(object sender, EventArgs e)
         {
-            if (productList.Count == 0)
+            if (productList.Count == 0 || productPhotoPath.Count == 0)
             {
                 MessageBox.Show("尚未新增商品!");
             }
@@ -173,19 +173,42 @@ namespace pgjMidtermProject
                         };
                         dbContext.ProductDetails.Add(newProductDetail);
                         dbContext.SaveChanges();
+                        foreach (string photoPath in productPhotoPath)
+                        {
+                            Image img = Image.FromFile(photoPath);
+                            MemoryStream ms = new MemoryStream();
+                            img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            byte[] bytes = ms.GetBuffer();
+                            ProductPic productPic = new ProductPic
+                            {
+                                ProductID = q4,
+                                picture = bytes,
+                            };
+                            dbContext.ProductPics.Add(productPic);
+                            dbContext.SaveChanges();
+                        }
+
                     }
+
+
                     MessageBox.Show("上架成功");
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show("上架失敗");
-                }
             }
+                catch (Exception ex)
+            {
+                MessageBox.Show("上架失敗");
+            }
+        }
             
 
         }
-
-
-
+        List<string> productPhotoPath = new List<string>();
+        private void btnProductPic_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                productPhotoPath.Add(openFileDialog1.FileName);
+                lblShowImgPath.Text += openFileDialog1.FileName;
+            }
+        }
     }
 }
