@@ -19,43 +19,64 @@ namespace prjProject
         {
             InitializeComponent();
         }
+        public string memberName
+        {
+            get
+            {
+                return lblWelcome.Text;
+            }
+            set
+            {
+                lblWelcome.Text = value;
+            }
+        }
+        public string ProductNumInCart
+        {
+            get
+            {
+
+            }
+            set
+            {
+
+            }
+        }
+        public int memberID { get; set; }
         iSpanProjectEntities dbContext = new iSpanProjectEntities();
         private void MainForm_Load(object sender, EventArgs e)
         {
-            IQueryable<Product> q = dbContext.Products.Select(i => i);
-            foreach (var p in q)
+            List<CtrlDisplayItem> list = CFunctions.GetProductsForHomePage();
+            foreach (CtrlDisplayItem i in list)
             {
-                CtrlDisplayItem ctrlDisplayItem = new CtrlDisplayItem();
-                var q1 = dbContext.ProductPics.Where(i => i.ProductID == p.ProductID).Select(i=>i.picture).FirstOrDefault();
-                ctrlDisplayItem.productID = p.ProductID;
-                if (q1 != null)
-                {
-                    MemoryStream ms = new MemoryStream(q1);
-                    ctrlDisplayItem.itemPhoto = Image.FromStream(ms);
-                }
-                var q2 = dbContext.ProductDetails.Where(i => i.ProductID == p.ProductID).OrderBy(i=>i.UnitPrice).Select(i => i.UnitPrice).ToList();
-                if (q2.Count > 0)
-                {
-                    decimal maxPrice = q2[q2.Count - 1];
-                    decimal minPrice = q2[0];
-                    if (maxPrice == minPrice)
-                    {
-                        ctrlDisplayItem.itemPrice = $"${minPrice}";
-                    }
-                    else
-                    {
-                        ctrlDisplayItem.itemPrice = $"${minPrice} - ${maxPrice}";
-                    }
-                }
-                ctrlDisplayItem.itemName = p.ProductName;
-                ctrlDisplayItem.itemDescription = p.Description;
-                flowLayoutPanel1.Controls.Add(ctrlDisplayItem);
-                ctrlDisplayItem.Click += CtrlDisplayItem_Click;
-                foreach (Control control in ctrlDisplayItem.Controls)
+                flpProduct.Controls.Add(i);
+                i.Click += CtrlDisplayItem_Click;
+                foreach (Control control in i.Controls)
                 {
                     control.Click += CtrlDisplayItem_Click;
                 }
             }
+            var q = dbContext.BigTypes.Select(i => i.BigTypeName);
+            foreach (var bigType in q)
+            {
+                LinkLabel linkLabel = new LinkLabel();
+                linkLabel.Text = bigType;
+                linkLabel.LinkColor = Color.Black;
+                linkLabel.Margin = new Padding(0, 0, 0, 20);
+                flpBigType.Controls.Add(linkLabel);
+                linkLabel.Click += BigType_Click;
+            }
+
+            
+        }
+
+        private void BigType_Click(object sender, EventArgs e)
+        {
+            LinkLabel linkLabel = sender as LinkLabel;
+            string bigType = linkLabel.Text;
+            int bigTypeID = dbContext.BigTypes.Where(i => i.BigTypeName == bigType).Select(i => i.BigTypeID).FirstOrDefault();
+            BigTypeForm form = new BigTypeForm();
+            form.bigTypeID = bigTypeID;
+            form.ShowDialog();
         }
 
         private void CtrlDisplayItem_Click(object sender, EventArgs e)
@@ -64,6 +85,12 @@ namespace prjProject
             CFunctions.ClickItemAndShow(sender, out productID);
             SelectedProductForm form = new SelectedProductForm();
             form.productID = productID;
+            form.ShowDialog();
+        }
+
+        private void linkLabelLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LoginForm form = new LoginForm();
             form.ShowDialog();
         }
     }

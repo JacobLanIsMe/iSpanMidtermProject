@@ -210,5 +210,28 @@ namespace pgjMidtermProject
                 lblShowImgPath.Text += openFileDialog1.FileName;
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int productID = 15;
+            string style = txtStyle.Text;
+            int qty = Convert.ToInt32(txtQty.Text);
+            decimal price = Convert.ToDecimal(txtUnitPrice.Text);
+
+            MemoryStream ms = new MemoryStream();
+            picbProductPhoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            byte[] bytes = ms.GetBuffer();
+
+            ProductDetail productDetail = new ProductDetail
+            {
+                ProductID = productID,
+                Style = style,
+                Quantity = qty,
+                UnitPrice = price,
+                Pic = bytes,
+            };
+            dbContext.ProductDetails.Add(productDetail);
+            dbContext.SaveChanges();
+        }
     }
 }
