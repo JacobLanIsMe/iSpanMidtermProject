@@ -19,7 +19,6 @@ namespace prjProject
         {
             this.Comments = new HashSet<Comment>();
             this.Likes = new HashSet<Like>();
-            this.Orders = new HashSet<Order>();
             this.ProductDetails = new HashSet<ProductDetail>();
             this.ProductPics = new HashSet<ProductPic>();
         }
@@ -38,8 +37,6 @@ namespace prjProject
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Like> Likes { get; set; }
         public virtual MemberAccount MemberAccount { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
         public virtual Shipper Shipper { get; set; }

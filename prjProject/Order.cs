@@ -25,7 +25,6 @@ namespace prjProject
         public int MemberID { get; set; }
         public System.DateTime OrderDatetime { get; set; }
         public string RecieveAdr { get; set; }
-        public int ProductID { get; set; }
         public System.DateTime FinishDate { get; set; }
         public Nullable<int> CouponID { get; set; }
         public int StatusID { get; set; }
@@ -36,7 +35,6 @@ namespace prjProject
         public virtual MemberAccount MemberAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        public virtual Product Product { get; set; }
         public virtual Status Status { get; set; }
     }
 }

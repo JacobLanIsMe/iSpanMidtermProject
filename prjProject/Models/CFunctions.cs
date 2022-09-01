@@ -28,11 +28,11 @@ namespace prjProject.Models
             productID = ctrlDisplayItem.productID;
         }
 
-        public static List<CtrlDisplayItem> GetProductsForHomePage()
+        public static List<CtrlDisplayItem> GetProductsForShow(IQueryable<Product> q)
         {
             iSpanProjectEntities dbContext = new iSpanProjectEntities();
             List<CtrlDisplayItem> list = new List<CtrlDisplayItem>();
-            var q = dbContext.Products.Select(i => i);
+            
             foreach (var p in q)
             {
                 var q1 = dbContext.ProductPics.Where(i => i.ProductID == p.ProductID).Select(i => i.picture).FirstOrDefault();
@@ -104,8 +104,134 @@ namespace prjProject.Models
             return memberID;
         }
         
+        public static void SendMemberInfoToEachForm(int memberID)
+        {
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            var q = dbContext.MemberAccounts.Where(i => i.MemberID == memberID).Select(i => i).FirstOrDefault();
+            var productNumInCart = dbContext.OrderDetails.Where(i => i.Order.MemberID == memberID && i.Order.StatusID == 1).Select(i => i).ToList().Count;
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form.GetType() == typeof(MainForm))
+                {
+                    MainForm f = (MainForm)form;
+                    f.memberName = q.Name;
+                    f.ProductNumInCart = productNumInCart.ToString();
+                    f.memberID = memberID;
+                }
+                else if (form.GetType() == typeof(SelectedProductForm))
+                {
+                    SelectedProductForm f = (SelectedProductForm)form;
+                    f.memberID = memberID;
+                    f.memberName = q.Name;
+                    f.ProductNumInCart = productNumInCart.ToString();
+                    f.memberRegion = q.RegionList.Region;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+        
+        public static void AddToCart(COrderInfo orderInfo, int memberID)
+        {
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            var q = dbContext.Orders.Where(i => i.MemberID == memberID && i.StatusID == 1).Select(i => i).ToList();
+            if (q.Count > 0)
+            {
+                OrderDetail orderDetail = new OrderDetail
+                {
+                    OrderID = q[0].OrderID,
+                    ProductDetailID = orderInfo.ProductDetailID,
+                    ShipperID = orderInfo.ShipperID,
+                    Quantity = orderInfo.Quantity,
+                    ShippingDate = orderInfo.ShippingDate,
+                    RecieveDate = orderInfo.RecieveDate,
+                    OutAdr = orderInfo.OutAdr,
+                    ShippingStatusID = orderInfo.ShippingStatusID,
+                };
+                dbContext.OrderDetails.Add(orderDetail);
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                Order order = new Order
+                {
+                    MemberID = orderInfo.MemberID,
+                    OrderDatetime = orderInfo.OrderDatetime,
+                    RecieveAdr = orderInfo.RecieveAdr,
+                    FinishDate = orderInfo.FinishDate,
+                    CouponID = orderInfo.CouponID,
+                    StatusID = 1
+                };
+                dbContext.Orders.Add(order);
+                dbContext.SaveChanges();
+                int orderID = dbContext.Orders.Where(i => i.MemberID == orderInfo.MemberID && i.StatusID == 1).Select(i => i.OrderID).FirstOrDefault();
+                OrderDetail orderDetail = new OrderDetail
+                {
+                    OrderID = orderID,
+                    ProductDetailID = orderInfo.ProductDetailID,
+                    ShipperID = orderInfo.ShipperID,
+                    Quantity = orderInfo.Quantity,
+                    ShippingDate = orderInfo.ShippingDate,
+                    RecieveDate = orderInfo.RecieveDate,
+                    OutAdr = orderInfo.OutAdr,
+                    ShippingStatusID = orderInfo.ShippingStatusID,
+                };
+                dbContext.OrderDetails.Add(orderDetail);
+                dbContext.SaveChanges();
+            }
+        }
+        public static int UpgradeQuantity(int productDetailID, int count)
+        {
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            var q = dbContext.ProductDetails.Where(i => i.ProductDetailID == productDetailID).Select(i => i).FirstOrDefault();
+            q.Quantity += count;
+            dbContext.SaveChanges();
+            var q1= dbContext.ProductDetails.Where(i => i.ProductDetailID == productDetailID).Select(i => i).FirstOrDefault();
+            int latestQuantity = q1.Quantity;
+            return latestQuantity;
+        }
 
+        public static void ShowMemberInfoAtHeader(int memberID, out string memberName, out int productNumInCart)
+        {
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            memberName = dbContext.MemberAccounts.Where(i => i.MemberID == memberID).Select(i => i.Name).FirstOrDefault();
+            productNumInCart = dbContext.OrderDetails.Where(i => i.Order.MemberID == memberID).Select(i => i).ToList().Count;
+        }
 
+        public static List<UCtrlShowItemsInCart> AddProductToUCtrlInCartForm(int memberID)
+        {
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            List<UCtrlShowItemsInCart> list = new List<UCtrlShowItemsInCart>();
+            int orderID = dbContext.Orders.Where(i => i.MemberID == memberID && i.StatusID == 1).Select(i => i.OrderID).FirstOrDefault();
+            var q = dbContext.OrderDetails.Where(i => i.OrderID == orderID).Select(i => i);
+            foreach (var p in q)
+            {
+                byte[] bytes = p.ProductDetail.Pic;
+                MemoryStream ms = new MemoryStream(bytes);
+                Image image = Image.FromStream(ms);
+                string productName = p.ProductDetail.Product.ProductName;
+                string productStyle = p.ProductDetail.Style;
+                decimal productPrice = p.ProductDetail.UnitPrice;
+                int productCount = p.Quantity;
+                int productQuantity = p.ProductDetail.Quantity;
+                int sumPrice = Convert.ToInt32(productPrice) * productCount;
+                int orderDetailID = p.OrderDetailID;
+                UCtrlShowItemsInCart uCtrl = new UCtrlShowItemsInCart
+                {
+                    orderDetailID = orderDetailID,
+                    productPhoto = image,
+                    productName = $"{productName} - {productStyle}",
+                    productPrice = $"{productPrice.ToString("0")}",
+                    productCount = productCount,
+                    nudCountMaxValue = productQuantity,
+                    productSumPrice = $"{sumPrice.ToString("0")}"
+                };
+                list.Add(uCtrl);
+            }
+            return list;
+        }
 
 
     }

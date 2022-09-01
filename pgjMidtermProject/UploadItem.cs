@@ -213,7 +213,7 @@ namespace pgjMidtermProject
 
         private void button2_Click(object sender, EventArgs e)
         {
-            int productID = 15;
+            int productID = 17;
             string style = txtStyle.Text;
             int qty = Convert.ToInt32(txtQty.Text);
             decimal price = Convert.ToDecimal(txtUnitPrice.Text);

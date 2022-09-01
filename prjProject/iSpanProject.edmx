@@ -147,7 +147,6 @@
           <Property Name="MemberID" Type="int" Nullable="false" />
           <Property Name="OrderDatetime" Type="datetime" Nullable="false" />
           <Property Name="RecieveAdr" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="FinishDate" Type="date" Nullable="false" />
           <Property Name="CouponID" Type="int" />
           <Property Name="StatusID" Type="int" Nullable="false" />
@@ -455,18 +454,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Orders_SalesCourt">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Orders_Statuses">
           <End Role="Statuses" Type="Self.Statuses" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -671,10 +658,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Orders_MemberAccount" Association="Self.FK_Orders_MemberAccount">
             <End Role="MemberAccount" EntitySet="MemberAccount" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_SalesCourt" Association="Self.FK_Orders_SalesCourt">
-            <End Role="Product" EntitySet="Product" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Statuses" Association="Self.FK_Orders_Statuses">
@@ -891,7 +874,6 @@
           <Property Name="MemberID" Type="Int32" Nullable="false" />
           <Property Name="OrderDatetime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RecieveAdr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="CouponID" Type="Int32" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
@@ -899,7 +881,6 @@
           <NavigationProperty Name="Coupon" Relationship="Self.FK_Orders_Coupons" FromRole="Orders" ToRole="Coupons" />
           <NavigationProperty Name="MemberAccount" Relationship="Self.FK_Orders_MemberAccount" FromRole="Orders" ToRole="MemberAccount" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Orders_SalesCourt" FromRole="Orders" ToRole="Product" />
           <NavigationProperty Name="Status" Relationship="Self.FK_Orders_Statuses" FromRole="Orders" ToRole="Statuses" />
         </EntityType>
         <EntityType Name="Payment">
@@ -925,7 +906,6 @@
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_SalesCourt" FromRole="Product" ToRole="Comment" />
           <NavigationProperty Name="Likes" Relationship="Self.FK_Likes_Product" FromRole="Product" ToRole="Likes" />
           <NavigationProperty Name="MemberAccount" Relationship="Self.FK_SalesCourt_MemberAccount" FromRole="Product" ToRole="MemberAccount" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_SalesCourt" FromRole="Product" ToRole="Orders" />
           <NavigationProperty Name="ProductDetails" Relationship="Self.FK_Product_SalesCourt" FromRole="Product" ToRole="ProductDetail" />
           <NavigationProperty Name="Shipper" Relationship="Self.FK_Product_Shipper" FromRole="Product" ToRole="Shipper" />
           <NavigationProperty Name="SmallType" Relationship="Self.FK_Product_SmallType" FromRole="Product" ToRole="SmallType" />
@@ -1261,18 +1241,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Orders_SalesCourt">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Orders_Statuses">
           <End Role="Statuses" Type="Self.Status" Multiplicity="1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
@@ -1454,10 +1422,6 @@
           <AssociationSet Name="FK_OrderDetails_ShippingStatuses" Association="Self.FK_OrderDetails_ShippingStatuses">
             <End Role="ShippingStatuses" EntitySet="ShippingStatuses" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_SalesCourt" Association="Self.FK_Orders_SalesCourt">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Statuses" Association="Self.FK_Orders_Statuses">
             <End Role="Statuses" EntitySet="Statuses" />
@@ -1645,7 +1609,6 @@
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
                 <ScalarProperty Name="OrderDatetime" ColumnName="OrderDatetime" />
                 <ScalarProperty Name="RecieveAdr" ColumnName="RecieveAdr" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
                 <ScalarProperty Name="CouponID" ColumnName="CouponID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />

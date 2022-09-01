@@ -34,18 +34,19 @@ namespace prjProject
         {
             get
             {
-
+                return lblProductNumInCart.Text;
             }
             set
             {
-
+                lblProductNumInCart.Text = value;
             }
         }
         public int memberID { get; set; }
         iSpanProjectEntities dbContext = new iSpanProjectEntities();
         private void MainForm_Load(object sender, EventArgs e)
         {
-            List<CtrlDisplayItem> list = CFunctions.GetProductsForHomePage();
+            var q = dbContext.Products.Select(i => i);
+            List<CtrlDisplayItem> list = CFunctions.GetProductsForShow(q);
             foreach (CtrlDisplayItem i in list)
             {
                 flpProduct.Controls.Add(i);
@@ -55,8 +56,8 @@ namespace prjProject
                     control.Click += CtrlDisplayItem_Click;
                 }
             }
-            var q = dbContext.BigTypes.Select(i => i.BigTypeName);
-            foreach (var bigType in q)
+            var q1 = dbContext.BigTypes.Select(i => i.BigTypeName);
+            foreach (var bigType in q1)
             {
                 LinkLabel linkLabel = new LinkLabel();
                 linkLabel.Text = bigType;
@@ -85,6 +86,8 @@ namespace prjProject
             CFunctions.ClickItemAndShow(sender, out productID);
             SelectedProductForm form = new SelectedProductForm();
             form.productID = productID;
+            form.memberID = memberID;
+            form.ProductNumInCart = ProductNumInCart;
             form.ShowDialog();
         }
 
@@ -92,6 +95,20 @@ namespace prjProject
         {
             LoginForm form = new LoginForm();
             form.ShowDialog();
+        }
+
+        private void pbCart_Click(object sender, EventArgs e)
+        {
+            if (memberID == 0)
+            {
+                LoginForm form = new LoginForm();
+                form.ShowDialog();
+            }
+            else
+            {
+                CartForm form = new CartForm();
+                form.ShowDialog();
+            }
         }
     }
 }

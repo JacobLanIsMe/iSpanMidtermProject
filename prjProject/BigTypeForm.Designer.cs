@@ -42,8 +42,9 @@ namespace prjProject
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.lblToSellerForm = new System.Windows.Forms.LinkLabel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.LinkLabelAllCategory = new System.Windows.Forms.LinkLabel();
             this.flpSmallType = new System.Windows.Forms.FlowLayoutPanel();
+            this.LinkLabelAllCategory = new System.Windows.Forms.LinkLabel();
+            this.flpProduct = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -52,6 +53,7 @@ namespace prjProject
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.flpSmallType.SuspendLayout();
             this.SuspendLayout();
@@ -215,19 +217,13 @@ namespace prjProject
             // 
             this.splitContainer2.Panel1.Controls.Add(this.flpSmallType);
             this.splitContainer2.Panel1.Font = new System.Drawing.Font("標楷體", 16.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.flpProduct);
             this.splitContainer2.Size = new System.Drawing.Size(1918, 672);
             this.splitContainer2.SplitterDistance = 190;
             this.splitContainer2.TabIndex = 0;
-            // 
-            // LinkLabelAllCategory
-            // 
-            this.LinkLabelAllCategory.AutoSize = true;
-            this.LinkLabelAllCategory.Location = new System.Drawing.Point(3, 0);
-            this.LinkLabelAllCategory.Name = "LinkLabelAllCategory";
-            this.LinkLabelAllCategory.Size = new System.Drawing.Size(151, 86);
-            this.LinkLabelAllCategory.TabIndex = 0;
-            this.LinkLabelAllCategory.TabStop = true;
-            this.LinkLabelAllCategory.Text = "所有分類";
             // 
             // flpSmallType
             // 
@@ -240,6 +236,25 @@ namespace prjProject
             this.flpSmallType.Size = new System.Drawing.Size(190, 672);
             this.flpSmallType.TabIndex = 0;
             this.flpSmallType.WrapContents = false;
+            // 
+            // LinkLabelAllCategory
+            // 
+            this.LinkLabelAllCategory.AutoSize = true;
+            this.LinkLabelAllCategory.Location = new System.Drawing.Point(3, 0);
+            this.LinkLabelAllCategory.Name = "LinkLabelAllCategory";
+            this.LinkLabelAllCategory.Size = new System.Drawing.Size(151, 86);
+            this.LinkLabelAllCategory.TabIndex = 0;
+            this.LinkLabelAllCategory.TabStop = true;
+            this.LinkLabelAllCategory.Text = "所有分類";
+            // 
+            // flpProduct
+            // 
+            this.flpProduct.AutoScroll = true;
+            this.flpProduct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpProduct.Location = new System.Drawing.Point(0, 0);
+            this.flpProduct.Name = "flpProduct";
+            this.flpProduct.Size = new System.Drawing.Size(1724, 672);
+            this.flpProduct.TabIndex = 0;
             // 
             // BigTypeForm
             // 
@@ -259,6 +274,7 @@ namespace prjProject
             ((System.ComponentModel.ISupportInitialize)(this.pbCart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.flpSmallType.ResumeLayout(false);
@@ -283,5 +299,6 @@ namespace prjProject
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.LinkLabel LinkLabelAllCategory;
         private System.Windows.Forms.FlowLayoutPanel flpSmallType;
+        private System.Windows.Forms.FlowLayoutPanel flpProduct;
     }
 }

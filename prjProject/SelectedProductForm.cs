@@ -18,8 +18,23 @@ namespace prjProject
         {
             InitializeComponent();
         }
+        public string memberName
+        {
+            get { return lblWelcome.Text; }
+            set { lblWelcome.Text = value; }
+        }
+        public string ProductNumInCart
+        {
+            get { return lblProductNumInCart.Text; }
+            set { lblProductNumInCart.Text = value; }
+        }
+        public string memberRegion
+        {
+            get { return cbbRegion.Text; }
+            set { cbbRegion.Text = value; }
+        }
         public int productID { get; set; }
-        private int memberID = -1;
+        public int memberID { get;set; }
         iSpanProjectEntities dbContext = new iSpanProjectEntities();
         private void SelectedProductForm_Load(object sender, EventArgs e)
         {
@@ -91,6 +106,19 @@ namespace prjProject
                 price = $"{minPrice.ToString("C0")} - {maxPrice.ToString("C0")}";
             }
             lblPrice.Text = price;
+
+            var q3 = dbContext.Products.Where(i => i.ProductID == productID).Select(i => i);
+            string sellerName = q3.Select(i => i.MemberAccount.Name).FirstOrDefault();
+            lblSellerName.Text = $"{sellerName}的賣場";
+            byte[] sellerPhoto = q3.Select(i => i.MemberAccount.MemPic).FirstOrDefault();
+            MemoryStream ms2 = new MemoryStream(sellerPhoto);
+            pbSellerPhoto.Image = Image.FromStream(ms2);
+            string productDescription = q3.FirstOrDefault().Description;
+            lblProductDescription.Text = productDescription;
+            int sellerID = q3.FirstOrDefault().MemberID;
+            int sellerProductNum = dbContext.Products.Where(i => i.MemberID == sellerID).Select(i => i).ToList().Count;
+            lblSellerProductNum.Text = sellerProductNum.ToString();
+
         }
 
         private void Style_MouseLeave(object sender, EventArgs e)
@@ -107,11 +135,15 @@ namespace prjProject
             pbProductPhoto.Image = Image.FromStream(ms);
         }
 
+        private int productDetailID = 0;
+        private string productRegion = "";
         private void Style_Click(object sender, EventArgs e)
         {
             Label label = (Label)sender;
             string style = label.Text;
             var q = dbContext.ProductDetails.Where(i => i.Style == style && i.ProductID == productID).Select(i => i).FirstOrDefault();
+            productDetailID = q.ProductDetailID;
+            productRegion = q.Product.RegionList.Region;
             lblPrice.Text = q.UnitPrice.ToString("c0");
             int qty = q.Quantity;
             lblQty.Text = $"庫存 {qty} 件";
@@ -148,6 +180,92 @@ namespace prjProject
             pbProductPhoto.Image = productPhotoList[productPhotoIndex];
         }
 
-       
+        private void linkLabelLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LoginForm form = new LoginForm();
+            form.ShowDialog();
+        }
+
+        private void btnAddToCart_Click(object sender, EventArgs e)
+        {
+            int detailID = 0;
+            string outAdr = "";
+            int qty = 0;
+            if (productDetailID == 0 || productRegion == "")
+            {
+                MessageBox.Show("請選擇一個樣式");
+                return;
+            }
+            else
+            {
+                detailID = productDetailID;
+                outAdr = productRegion;
+            }
+            if (nudCount.Value == 0)
+            {
+                MessageBox.Show("請選擇訂購的數量");
+                return;
+            }
+            else
+            {
+                qty = Convert.ToInt32(nudCount.Value);
+            }
+            
+            COrderInfo orderInfo = new COrderInfo
+            {
+                MemberID = memberID,
+                OrderDatetime = DateTime.Now,
+                RecieveAdr = cbbRegion.Text,
+                FinishDate = DateTime.Now,
+                CouponID = 7,
+                StatusID = 1,
+                ProductDetailID = detailID,
+                ShipperID = 2,
+                Quantity = qty,
+                ShippingDate = DateTime.Now,
+                RecieveDate = DateTime.Now,
+                OutAdr = outAdr,
+                ShippingStatusID = 1,
+            };
+            int latestQuantity = 0;
+            if (memberID == 0)
+            {
+                LoginForm form = new LoginForm();
+                form.ShowDialog();
+                if (memberID > 0)
+                {
+                    CFunctions.AddToCart(orderInfo, memberID);
+                    CFunctions.SendMemberInfoToEachForm(memberID);
+                    latestQuantity = CFunctions.UpgradeQuantity(productDetailID, -qty);
+                    lblQty.Text = $"庫存 {latestQuantity} 件";
+                    nudCount.Maximum = latestQuantity;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                CFunctions.AddToCart(orderInfo, memberID);
+                CFunctions.SendMemberInfoToEachForm(memberID);
+                latestQuantity = CFunctions.UpgradeQuantity(productDetailID, -qty);
+                lblQty.Text = $"庫存 {latestQuantity} 件";
+                nudCount.Maximum = latestQuantity;
+            }
+        }
+
+        private void pbCart_Click(object sender, EventArgs e)
+        {
+            CartForm form = new CartForm();
+            form.ShowDialog();
+        }
+
+        private void btnBuyNow_Click(object sender, EventArgs e)
+        {
+            CartForm form = new CartForm();
+            form.IsBuyNow = true;
+            form.ShowDialog();
+        }
     }
 }

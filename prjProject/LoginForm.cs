@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjProject.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,16 +26,9 @@ namespace prjProject
             if (q.Count > 0)
             {
                 MessageBox.Show("成功登入");
-                foreach (Form form in Application.OpenForms)
-                {
-                    if (form.GetType() == typeof(MainForm))
-                    {
-                        MainForm f = (MainForm)form;
-                        //f.memberName = q[0].Name;
-                        //f.ProductNumInCart = 
-                        f.memberID = q[0].MemberID;
-                    }
-                }
+                int memberID = q[0].MemberID;
+                CFunctions.SendMemberInfoToEachForm(memberID);
+                
                 this.Close();
             }
             else
