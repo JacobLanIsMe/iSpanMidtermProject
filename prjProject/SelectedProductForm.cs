@@ -144,8 +144,10 @@ namespace prjProject
             var q = dbContext.ProductDetails.Where(i => i.Style == style && i.ProductID == productID).Select(i => i).FirstOrDefault();
             productDetailID = q.ProductDetailID;
             productRegion = q.Product.RegionList.Region;
+            
             lblPrice.Text = q.UnitPrice.ToString("c0");
-            int qty = q.Quantity;
+            
+            int qty = dbContext.ProductDetails.Where(i=>i.ProductDetailID == productDetailID).Select(i=>i.Quantity).FirstOrDefault();
             lblQty.Text = $"庫存 {qty} 件";
             nudCount.Maximum = qty;
             foreach (Control control in flpStyle.Controls)
@@ -211,31 +213,13 @@ namespace prjProject
                     ShippingStatusID = 1,
                 };
                 int latestQuantity = 0;
-                if (memberID == 0)
-                {
-                    LoginForm form = new LoginForm();
-                    form.ShowDialog();
-                    if (memberID > 0)
-                    {
-                        CFunctions.AddToCart(orderInfo, memberID);
-                        CFunctions.SendMemberInfoToEachForm(memberID);
-                        latestQuantity = CFunctions.UpgradeQuantity(productDetailID, -qty);
-                        lblQty.Text = $"庫存 {latestQuantity} 件";
-                        nudCount.Maximum = latestQuantity;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    CFunctions.AddToCart(orderInfo, memberID);
-                    CFunctions.SendMemberInfoToEachForm(memberID);
-                    latestQuantity = CFunctions.UpgradeQuantity(productDetailID, -qty);
-                    lblQty.Text = $"庫存 {latestQuantity} 件";
-                    nudCount.Maximum = latestQuantity;
-                }
+                CFunctions.AddToCart(orderInfo, memberID);
+                CFunctions.SendMemberInfoToEachForm(memberID);
+                latestQuantity = CFunctions.UpgradeQuantity(productDetailID, -qty);
+                lblQty.Text = $"庫存 {latestQuantity} 件";
+                nudCount.Value = 0;
+                nudCount.Maximum = latestQuantity;
+                CFunctions.ResetStyleButton(flpStyle, productID);
             }
             else
             {
@@ -254,15 +238,25 @@ namespace prjProject
         {
             if (memberID > 0)
             {
-
+                if (!CFunctions.IsAllInfoChecked(productDetailID, productRegion, nudCount.Value, out int detailID, out string outAdr, out int qty))
+                {
+                    return;
+                }
+                else
+                {
+                    CartForm form = new CartForm();
+                    form.IsBuyNow = true;
+                    form.productDetailID = productDetailID;
+                    form.productCount = Convert.ToInt32(nudCount.Value);
+                    form.ShowDialog();
+                }
             }
             else
             {
-                //LoginForm form = new LoginForm();
+                LoginForm form = new LoginForm();
+                form.ShowDialog();
             }
-            CartForm form = new CartForm();
-            form.IsBuyNow = true;
-            form.ShowDialog();
+            
         }
     }
 }

@@ -182,7 +182,7 @@ namespace prjProject.Models
                 dbContext.SaveChanges();
             }
         }
-        public static int UpgradeQuantity(int productDetailID, int count)
+        public static int UpgradeQuantity(int productDetailID, int count = 0)
         {
             iSpanProjectEntities dbContext = new iSpanProjectEntities();
             var q = dbContext.ProductDetails.Where(i => i.ProductDetailID == productDetailID).Select(i => i).FirstOrDefault();
@@ -200,7 +200,7 @@ namespace prjProject.Models
             productNumInCart = dbContext.OrderDetails.Where(i => i.Order.MemberID == memberID).Select(i => i).ToList().Count;
         }
 
-        public static List<UCtrlShowItemsInCart> AddProductToUCtrlInCartForm(int memberID)
+        public static List<UCtrlShowItemsInCart> AddOrderToUCtrlInCartForm(int memberID)
         {
             iSpanProjectEntities dbContext = new iSpanProjectEntities();
             List<UCtrlShowItemsInCart> list = new List<UCtrlShowItemsInCart>();
@@ -213,25 +213,30 @@ namespace prjProject.Models
                 Image image = Image.FromStream(ms);
                 string productName = p.ProductDetail.Product.ProductName;
                 string productStyle = p.ProductDetail.Style;
+                productName = $"{productName} - {productStyle}";
                 decimal productPrice = p.ProductDetail.UnitPrice;
                 int productCount = p.Quantity;
-                int productQuantity = p.ProductDetail.Quantity;
-                int sumPrice = Convert.ToInt32(productPrice) * productCount;
+                int productSumPrice = Convert.ToInt32(productPrice) * productCount;
                 int orderDetailID = p.OrderDetailID;
-                UCtrlShowItemsInCart uCtrl = new UCtrlShowItemsInCart
-                {
-                    orderDetailID = orderDetailID,
-                    productPhoto = image,
-                    productName = $"{productName} - {productStyle}",
-                    productPrice = $"{productPrice.ToString("C0")}",
-                    productCount = productCount,
-                    nudCountMaxValue = productQuantity,
-                    productSumPrice = $"{sumPrice.ToString("C0")}"
-                };
+                UCtrlShowItemsInCart uCtrl = AddOrderToUCtrl(image, productName, productPrice, productCount, productSumPrice, orderDetailID);
                 list.Add(uCtrl);
             }
             return list;
         }
+        public static UCtrlShowItemsInCart AddOrderToUCtrl(Image productPhoto, string productName, decimal productPrice, int productCount, int productSumPrice, int orderDetailID = 0)
+        {
+            UCtrlShowItemsInCart uCtrl = new UCtrlShowItemsInCart
+            {
+                orderDetailID = orderDetailID,
+                productPhoto = productPhoto,
+                productName = productName,
+                productPrice = $"{productPrice.ToString("C0")}",
+                productCount = productCount,
+                productSumPrice = $"{productSumPrice.ToString("C0")}"
+            };
+            return uCtrl;
+        }
+
         public static bool IsAllInfoChecked(int productDetailID, string productRegion, decimal nudCountValue, out int detailID, out string outAdr, out int qty)
         {
             detailID = 0;
@@ -259,5 +264,37 @@ namespace prjProject.Models
             return true;
         }
 
+        public static void ResetStyleButton(FlowLayoutPanel flp, int productID)
+        {
+            iSpanProjectEntities dbContext = new iSpanProjectEntities();
+            foreach (Control control in flp.Controls)
+            {
+                if (control.GetType() == typeof(Label))
+                {
+                    Label label = (Label)control;
+                    string style = label.Text;
+                    int productQuantity = dbContext.ProductDetails.Where(i => i.Style == style && i.ProductID == productID).Select(i => i.Quantity).FirstOrDefault();
+                    if (productQuantity == 0)
+                    {
+                        label.ForeColor = Color.DarkGray;
+                        label.BorderStyle = BorderStyle.Fixed3D;
+                        label.BackColor = Color.Transparent;
+                    }
+                    else
+                    {
+                        label.BorderStyle = BorderStyle.FixedSingle;
+                    }
+                    
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+        public static void SummarizeTotalPrice()
+        {
+
+        }
     }
 }

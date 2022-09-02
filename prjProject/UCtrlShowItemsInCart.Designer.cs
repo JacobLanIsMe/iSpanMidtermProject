@@ -89,6 +89,11 @@ namespace prjProject
             this.nudCount.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCount.Location = new System.Drawing.Point(487, 35);
             this.nudCount.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
+            this.nudCount.Maximum = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            0});
             this.nudCount.Name = "nudCount";
             this.nudCount.Size = new System.Drawing.Size(98, 26);
             this.nudCount.TabIndex = 4;
