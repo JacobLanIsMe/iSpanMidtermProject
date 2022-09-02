@@ -223,16 +223,41 @@ namespace prjProject.Models
                     orderDetailID = orderDetailID,
                     productPhoto = image,
                     productName = $"{productName} - {productStyle}",
-                    productPrice = $"{productPrice.ToString("0")}",
+                    productPrice = $"{productPrice.ToString("C0")}",
                     productCount = productCount,
                     nudCountMaxValue = productQuantity,
-                    productSumPrice = $"{sumPrice.ToString("0")}"
+                    productSumPrice = $"{sumPrice.ToString("C0")}"
                 };
                 list.Add(uCtrl);
             }
             return list;
         }
-
+        public static bool IsAllInfoChecked(int productDetailID, string productRegion, decimal nudCountValue, out int detailID, out string outAdr, out int qty)
+        {
+            detailID = 0;
+            outAdr = "";
+            qty = 0;
+            if (productDetailID == 0 || productRegion == "")
+            {
+                MessageBox.Show("請選擇一個樣式");
+                return false;
+            }
+            else
+            {
+                detailID = productDetailID;
+                outAdr = productRegion;
+            }
+            if (nudCountValue == 0)
+            {
+                MessageBox.Show("請選擇訂購的數量");
+                return false;
+            }
+            else
+            {
+                qty = Convert.ToInt32(nudCountValue);
+            }
+            return true;
+        }
 
     }
 }

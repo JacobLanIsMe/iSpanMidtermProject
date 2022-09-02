@@ -188,51 +188,47 @@ namespace prjProject
 
         private void btnAddToCart_Click(object sender, EventArgs e)
         {
-            int detailID = 0;
-            string outAdr = "";
-            int qty = 0;
-            if (productDetailID == 0 || productRegion == "")
+            if (memberID > 0)
             {
-                MessageBox.Show("請選擇一個樣式");
-                return;
-            }
-            else
-            {
-                detailID = productDetailID;
-                outAdr = productRegion;
-            }
-            if (nudCount.Value == 0)
-            {
-                MessageBox.Show("請選擇訂購的數量");
-                return;
-            }
-            else
-            {
-                qty = Convert.ToInt32(nudCount.Value);
-            }
-            
-            COrderInfo orderInfo = new COrderInfo
-            {
-                MemberID = memberID,
-                OrderDatetime = DateTime.Now,
-                RecieveAdr = cbbRegion.Text,
-                FinishDate = DateTime.Now,
-                CouponID = 7,
-                StatusID = 1,
-                ProductDetailID = detailID,
-                ShipperID = 2,
-                Quantity = qty,
-                ShippingDate = DateTime.Now,
-                RecieveDate = DateTime.Now,
-                OutAdr = outAdr,
-                ShippingStatusID = 1,
-            };
-            int latestQuantity = 0;
-            if (memberID == 0)
-            {
-                LoginForm form = new LoginForm();
-                form.ShowDialog();
-                if (memberID > 0)
+                if (!CFunctions.IsAllInfoChecked(productDetailID, productRegion, nudCount.Value, out int detailID, out string outAdr, out int qty))
+                {
+                    return;
+                }
+                COrderInfo orderInfo = new COrderInfo
+                {
+                    MemberID = memberID,
+                    OrderDatetime = DateTime.Now,
+                    RecieveAdr = cbbRegion.Text,
+                    FinishDate = DateTime.Now,
+                    CouponID = 7,
+                    StatusID = 1,
+                    ProductDetailID = detailID,
+                    ShipperID = 2,
+                    Quantity = qty,
+                    ShippingDate = DateTime.Now,
+                    RecieveDate = DateTime.Now,
+                    OutAdr = outAdr,
+                    ShippingStatusID = 1,
+                };
+                int latestQuantity = 0;
+                if (memberID == 0)
+                {
+                    LoginForm form = new LoginForm();
+                    form.ShowDialog();
+                    if (memberID > 0)
+                    {
+                        CFunctions.AddToCart(orderInfo, memberID);
+                        CFunctions.SendMemberInfoToEachForm(memberID);
+                        latestQuantity = CFunctions.UpgradeQuantity(productDetailID, -qty);
+                        lblQty.Text = $"庫存 {latestQuantity} 件";
+                        nudCount.Maximum = latestQuantity;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
                 {
                     CFunctions.AddToCart(orderInfo, memberID);
                     CFunctions.SendMemberInfoToEachForm(memberID);
@@ -240,18 +236,11 @@ namespace prjProject
                     lblQty.Text = $"庫存 {latestQuantity} 件";
                     nudCount.Maximum = latestQuantity;
                 }
-                else
-                {
-                    return;
-                }
             }
             else
             {
-                CFunctions.AddToCart(orderInfo, memberID);
-                CFunctions.SendMemberInfoToEachForm(memberID);
-                latestQuantity = CFunctions.UpgradeQuantity(productDetailID, -qty);
-                lblQty.Text = $"庫存 {latestQuantity} 件";
-                nudCount.Maximum = latestQuantity;
+                LoginForm form = new LoginForm();
+                form.ShowDialog();
             }
         }
 
@@ -263,6 +252,14 @@ namespace prjProject
 
         private void btnBuyNow_Click(object sender, EventArgs e)
         {
+            if (memberID > 0)
+            {
+
+            }
+            else
+            {
+                //LoginForm form = new LoginForm();
+            }
             CartForm form = new CartForm();
             form.IsBuyNow = true;
             form.ShowDialog();

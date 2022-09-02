@@ -45,17 +45,19 @@ namespace prjProject
             // checkBox
             // 
             this.checkBox.AutoSize = true;
-            this.checkBox.Location = new System.Drawing.Point(26, 78);
+            this.checkBox.Location = new System.Drawing.Point(12, 39);
+            this.checkBox.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.checkBox.Name = "checkBox";
-            this.checkBox.Size = new System.Drawing.Size(28, 27);
+            this.checkBox.Size = new System.Drawing.Size(15, 14);
             this.checkBox.TabIndex = 0;
             this.checkBox.UseVisualStyleBackColor = true;
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(99, 17);
+            this.pictureBox.Location = new System.Drawing.Point(46, 8);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox.Size = new System.Drawing.Size(69, 75);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
@@ -64,9 +66,10 @@ namespace prjProject
             // 
             this.lblProductName.AutoSize = true;
             this.lblProductName.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lblProductName.Location = new System.Drawing.Point(3, 0);
+            this.lblProductName.Location = new System.Drawing.Point(1, 0);
+            this.lblProductName.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(143, 32);
+            this.lblProductName.Size = new System.Drawing.Size(72, 16);
             this.lblProductName.TabIndex = 2;
             this.lblProductName.Text = "商品名稱";
             // 
@@ -74,51 +77,55 @@ namespace prjProject
             // 
             this.lblPrice.AutoSize = true;
             this.lblPrice.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrice.Location = new System.Drawing.Point(818, 74);
+            this.lblPrice.Location = new System.Drawing.Point(378, 37);
+            this.lblPrice.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(143, 36);
+            this.lblPrice.Size = new System.Drawing.Size(73, 19);
             this.lblPrice.TabIndex = 3;
             this.lblPrice.Text = "商品單價";
             // 
             // nudCount
             // 
             this.nudCount.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudCount.Location = new System.Drawing.Point(1055, 70);
+            this.nudCount.Location = new System.Drawing.Point(487, 35);
+            this.nudCount.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.nudCount.Name = "nudCount";
-            this.nudCount.Size = new System.Drawing.Size(213, 44);
+            this.nudCount.Size = new System.Drawing.Size(98, 26);
             this.nudCount.TabIndex = 4;
-            this.nudCount.ValueChanged += new System.EventHandler(this.nudCount_ValueChanged);
             // 
             // lblSum
             // 
             this.lblSum.AutoSize = true;
             this.lblSum.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSum.Location = new System.Drawing.Point(1356, 74);
+            this.lblSum.Location = new System.Drawing.Point(626, 37);
+            this.lblSum.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.lblSum.Name = "lblSum";
-            this.lblSum.Size = new System.Drawing.Size(79, 36);
+            this.lblSum.Size = new System.Drawing.Size(41, 19);
             this.lblSum.TabIndex = 5;
             this.lblSum.Text = "總計";
             // 
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("標楷體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnDelete.Location = new System.Drawing.Point(1483, 67);
+            this.btnDelete.Location = new System.Drawing.Point(730, 34);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(159, 50);
+            this.btnDelete.Size = new System.Drawing.Size(73, 25);
             this.btnDelete.TabIndex = 6;
             this.btnDelete.Text = "刪除";
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.lblProductName);
-            this.panel1.Location = new System.Drawing.Point(278, 17);
+            this.panel1.Location = new System.Drawing.Point(128, 8);
+            this.panel1.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(318, 150);
+            this.panel1.Size = new System.Drawing.Size(147, 75);
             this.panel1.TabIndex = 7;
             // 
             // UCtrlShowItemsInCart
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnDelete);
@@ -127,8 +134,9 @@ namespace prjProject
             this.Controls.Add(this.lblPrice);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.checkBox);
+            this.Margin = new System.Windows.Forms.Padding(1, 2, 1, 2);
             this.Name = "UCtrlShowItemsInCart";
-            this.Size = new System.Drawing.Size(1701, 180);
+            this.Size = new System.Drawing.Size(814, 90);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCount)).EndInit();
             this.panel1.ResumeLayout(false);

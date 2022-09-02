@@ -56,9 +56,6 @@ namespace prjProject
             set { lblSum.Text = value; }
         }
 
-        private void nudCount_ValueChanged(object sender, EventArgs e)
-        {
-            lblSum.Text = (Convert.ToInt32(lblPrice.Text) * Convert.ToInt32(nudCount.Value)).ToString();
-        }
+        
     }
 }
